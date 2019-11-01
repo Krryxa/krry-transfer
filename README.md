@@ -12,7 +12,7 @@
 1. 多级多选
 2. 当勾选省级并添加，过滤备选框的当前省级，同时在已选框该省级的子级合并成一个省级
 3. 当勾选市级并添加，过滤备选框的当前市级，同时在已选框该市级的子级合并成一个市级
-4. 当从已选框中移除数据，又要针对移除的数据是省、市、区分别在备选框新增这些数据
+4. 当从已选框中移除数据，针对移除的数据是省、市、区分别在备选框新增这些数据
 5. 当父级勾选多个数据，下级方框展示的数据为最后勾选父级的子级集合
 6. 当多个勾选的父级逐个取消勾选，下级方框展示的数据为上一次勾选父级的子级集合
 7. 支持搜索
@@ -55,20 +55,10 @@ export default {
           '101103': '广东省',
         },
         city: {
-          '101101': [
-            {
-              id: 101101101112,
-              text: '通州区'
-            },
-            {
-              id: 101101101111,
-              text: '房山区'
-            }
-          ]
           '101103': [
             {
               id: 101164181112,
-              text: '深圳市'
+              label: '深圳市'
             }
           ]
         },
@@ -76,7 +66,7 @@ export default {
           '101164181112': [
             {
               id: 106105142126,
-              text: '宝安区'
+              label: '宝安区'
             }
           ]
         }
@@ -84,7 +74,7 @@ export default {
       selectedData: [
         {
           id: '101101-101101101112',
-          text: '北京市-通州区'
+          label: '北京市-通州区'
         }
       ]
     }
@@ -98,31 +88,30 @@ export default {
 </script>
 ```
 
+## Browser Support
+Modern browsers and Internet Explorer 10+.
+
 ## API
 
 ### Attributes
 
 |name|type|default|description|
-|-|-|-|-|
+|:-|:-|:-|:-|
 |boxTitle|Array|['省份', '城市', '区县', '选中地域']|按顺序指定每个方框的 title|
 |boxOperation|Array|['添加选中省份', '添加选中城市', '添加选中区县', '删除选中地域']|按顺序指定每个方框的底部操作文案|
 |dataList|Object|{}|全部数据对象|
 |selectedData|Object|{}|已选数据对象|
 
-<br>
-
 ### Events
 
 |name|params|description|
-|-|-|-|
+|:-|:-|:-|
 |onChange|String: value：已选数据对象|当已选数据变化时触发的事件|
-
-<br>
 
 ### Methods
 
 |name|params|description|
-|-|-|-|
+|:-|:-|:-|
 |getSelectedData|-|获取已选数据对象的钩子|
 
 <br>
@@ -133,21 +122,21 @@ export default {
 ```js
 dataList: {
   province: {
-    '101103': '广东省'
+    '省id': 'xx省'
   },
   city: {
-    '101103': [
+    '省id': [
       {
-        id: 101102101351,
-        text: '河源市'
+        id: '市id',
+        label: 'xx市'
       }
     ]
   },
   county: {
-    '101102101351': [
+    '市id': [
       {
-        id: 106105143124,
-        text: '龙川县'
+        id: '区id',
+        label: 'xx区'
       }
     ]
   }
@@ -160,43 +149,23 @@ dataList: {
   province: {
     '101101': '北京市',
     '101102': '天津市',
-    '101103': '广东省',
-    '101111': '内蒙古自治区',
-    '101112': '青海省'
+    '101103': '广东省'
   },
   city: {
     '101101': [
       {
         id: 101101101112,
-        text: '通州区'
-      },
-      {
-        id: 101101101111,
-        text: '房山区'
-      }
-    ],
-    '101102': [
-      {
-        id: 101102101111,
-        text: '西青区'
-      },
-      {
-        id: 101102101112,
-        text: '津南区'
+        label: '通州区'
       }
     ],
     '101103': [
       {
         id: 101102101351,
-        text: '河源市'
-      },
-      {
-        id: 101164001112,
-        text: '惠州市'
+        label: '河源市'
       },
       {
         id: 101164181112,
-        text: '深圳市'
+        label: '深圳市'
       }
     ]
   },
@@ -204,35 +173,17 @@ dataList: {
     '101164181112': [
       {
         id: 106105142126,
-        text: '宝安区'
+        label: '宝安区'
       },
       {
         id: 106105142125,
-        text: '南山区'
-      },
-      {
-        id: 106105143124,
-        text: '罗湖区'
+        label: '南山区'
       }
     ],
     '101102101351': [
       {
         id: 106105143124,
-        text: '龙川县'
-      },
-      {
-        id: 106105143125,
-        text: '紫金县'
-      }
-    ],
-    '101164001112': [
-      {
-        id: 106465133124,
-        text: '惠阳区'
-      },
-      {
-        id: 106197987125,
-        text: '惠城区'
+        label: '龙川县'
       }
     ]
   }
@@ -245,18 +196,25 @@ dataList: {
 selectedData: [
   {
     id: '101111',
-    text: '内蒙古自治区'
+    label: '内蒙古自治区'
   },
   {
     id: '101101-101101101112',
-    text: '北京市-通州区'
+    label: '北京市-通州区'
   },
   {
     id: '101103-101164001112-106197987125',
-    text: '广东省-惠州市-惠城区'
+    label: '广东省-惠州市-惠城区'
   }
 ]
 ```
+
+## Donation
+If you find KrryTransfer useful, you can buy me a cup of coffee
+
+![pay](https://ainyi.com/upload/pay.jpg)
+
+
 
 ## About
 npm 地址：[krry-transfer](https://www.npmjs.com/package/krry-transfer)
@@ -264,3 +222,6 @@ npm 地址：[krry-transfer](https://www.npmjs.com/package/krry-transfer)
 博客地址：[Krryblog](https://ainyi.com) 
 
 GitHub：[GitHub](https://github.com/Krryxa/krry-transfer)
+
+## LICENSE
+[MIT](https://github.com/Krryxa/krry-transfer/blob/master/LICENSE)

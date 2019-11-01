@@ -31,7 +31,7 @@
           class="el-transfer-panel__item"
           :label="city"
           :key="city.id"
-        >{{city.text}}</el-checkbox>
+        >{{city.label}}</el-checkbox>
       </el-checkbox-group>
       <p class="no-data" v-else>无数据</p>
     </div>
@@ -87,7 +87,7 @@ export default {
       this.districtListMock = this.districtList
       // 过滤掉数据，保留搜索的数据
       this.districtListMock = this.districtListMock.filter(val =>
-        val.text.includes(newWord)
+        val.label.includes(newWord)
       )
     },
     // 当点击省级或市级，自动监听并更新市级或区级的列表
@@ -140,7 +140,7 @@ export default {
         for (let val of this.selectedDistrict) {
           selectedList.push({
             id: val.id,
-            text: val.text
+            label: val.label
           })
           filterId.push(val.id)
         }
@@ -150,7 +150,7 @@ export default {
         for (let val of this.selectedDistrict) {
           selectedList.push({
             id: this.father.id + '-' + val.id,
-            text: this.father.text + '-' + val.text
+            label: this.father.label + '-' + val.label
           })
           filterId.push(val.id)
         }
@@ -160,7 +160,7 @@ export default {
         for (let val of this.selectedDistrict) {
           selectedList.push({
             id: val.id,
-            text: val.text
+            label: val.label
           })
         }
         this.$emit('delete-checked', selectedList)

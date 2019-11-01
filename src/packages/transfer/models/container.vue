@@ -135,7 +135,7 @@ export default {
           // 省级对象添加进selectedArray
           selectedArray.push({
             id: val,
-            text: title
+            label: title
           })
         }
       }
@@ -152,7 +152,7 @@ export default {
           // 省级对象添加进selectedArray
           deleteSelected.push({
             id: val,
-            text: title
+            label: title
           })
         }
       }
@@ -165,7 +165,7 @@ export default {
       for (let key in this.dataList.province) {
         this.provinceList.push({
           id: key,
-          text: this.dataList.province[key]
+          label: this.dataList.province[key]
         })
         // 省级过滤处理
         this.handleFilterProvince()
@@ -189,7 +189,7 @@ export default {
             // 将父级对象放进市级组件
             this.$refs.city.father = {
               id: id,
-              text: obj.text
+              label: obj.label
             }
             flag = false
             break
@@ -216,11 +216,11 @@ export default {
             this.handleFilterCounty()
             // 获取省级的数据
             let fatherId = this.$refs.city.father.id
-            let fatherText = this.$refs.city.father.text
+            let fatherText = this.$refs.city.father.label
             // 拼接上市级数据放进县级组件
             this.$refs.county.father = {
               id: fatherId + '-' + id,
-              text: fatherText + '-' + obj.text
+              label: fatherText + '-' + obj.label
             }
             flag = false
             break
@@ -350,9 +350,9 @@ export default {
             if (this.$refs.city.selectedDistrict.length) {
               // 市级已勾选才显示区级
               let fatherId = this.$refs.county.father.id.split('-')[1]
-              let fatherText = this.$refs.county.father.text.split('-')[1]
-              let obj = [{ id: fatherId, text: fatherText }]
-              // 重新获取县级数据，参数：当前市级ID的对象数组：obj:[{id:id,text:text}]
+              let fatherText = this.$refs.county.father.label.split('-')[1]
+              let obj = [{ id: fatherId, label: fatherText }]
+              // 重新获取县级数据，参数：当前市级ID的对象数组：obj:[{id:id,label:label}]
               this.checkCity(obj)
             }
             break
