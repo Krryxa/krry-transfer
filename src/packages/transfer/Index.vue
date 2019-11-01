@@ -10,8 +10,11 @@
     <krry-container
       :wareHousePro="provinceList"
       :wareHouseFlag="wareHouseFlag"
+      :boxTitle="boxTitle"
+      :boxOperation="boxOperation"
       :dataList="dataList"
       :selectedData="selectedData"
+      :onChangeSelected="emitChangeSelected"
     ></krry-container>
   </div>
 </template>
@@ -24,6 +27,19 @@ export default {
     warehousesList: {
       type: Array,
       default: () => []
+    },
+    boxTitle: {
+      type: Array,
+      default: () => ['省份', '城市', '区县', '选中地域']
+    },
+    boxOperation: {
+      type: Array,
+      default: () => [
+        '添加选中省份',
+        '添加选中城市',
+        '添加选中区县',
+        '删除选中地域'
+      ]
     },
     dataList: {
       type: Object,
@@ -39,9 +55,9 @@ export default {
   },
   data() {
     return {
+      hasSelectData: [],
       warehouseObj: [], // 选中的仓库对象
       warehouse: [], // 仓库
-
       provinceList: [], // 仓库对应的省id
       wareHouseFlag: false // 分仓的省id加载完毕的标志
       // warehousesList: [
@@ -91,7 +107,7 @@ export default {
       for (let val of this.warehousesList) {
         // 每个数组元素去空格后合并成一个数组
         this.provinceList = this.provinceList.concat(
-          val['province'].map(vq => vq.trim())
+          val.province.map(vq => vq.trim())
         )
       }
     },
@@ -104,9 +120,18 @@ export default {
       for (let val of value) {
         // 每个数组元素去空格后合并成一个数组
         this.provinceList = this.provinceList.concat(
-          val['province'].map(vq => vq.trim())
+          val.province.map(vq => vq.trim())
         )
       }
+    },
+    // 获取已选数据的监听事件
+    emitChangeSelected(val) {
+      this.hasSelectData = val
+      this.$emit('onChange', val)
+    },
+    // 提供获取已选数据的钩子
+    getSelectedData() {
+      return this.hasSelectData
     }
   }
 }

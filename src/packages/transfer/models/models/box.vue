@@ -5,7 +5,7 @@
         :indeterminate="isIndeterminate"
         v-model="checkAll"
         @change="handleCheckAllChange"
-      >{{title[titleId]}}</el-checkbox>
+      >{{title}}</el-checkbox>
       <span class="check-number">{{selectedDistrict.length}}/{{districtListMock.length}}</span>
     </div>
     <div class="el-transfer-panel__body">
@@ -52,20 +52,22 @@
 <script>
 export default {
   props: {
-    titleId: {
+    title: {
+      type: String
+    },
+    operation: {
+      type: String
+    },
+    operateId: {
       type: Number
     },
     // 区域数据
     districtList: {
       type: Array
-    },
-    operation: {
-      type: String
     }
   },
   data() {
     return {
-      title: ['省份', '城市', '区县', '选中地域'],
       districtListMock: [], // 展示的数据 （搜索会自动修改这个数组）
       selectedDistrict: [], // 已选择，数据格式：[区域id,id,id...]
       father: {}, // 父级数据
@@ -133,7 +135,7 @@ export default {
     checkedSelected() {
       let selectedList = []
       let filterId = []
-      if (this.titleId === 0) {
+      if (this.operateId === 0) {
         // 省级添加
         for (let val of this.selectedDistrict) {
           selectedList.push({
@@ -143,7 +145,7 @@ export default {
           filterId.push(val.id)
         }
         this.$emit('selected-checked', selectedList, filterId)
-      } else if (this.titleId === 1 || this.titleId === 2) {
+      } else if (this.operateId === 1 || this.operateId === 2) {
         // 市级或县级添加
         for (let val of this.selectedDistrict) {
           selectedList.push({

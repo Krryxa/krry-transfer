@@ -1,33 +1,36 @@
 <template>
   <div>
     <krry-box
-      :titleId="0"
-      :operation="operation[0]"
       ref="prov"
+      :operation="boxOperation[0]"
+      :title="boxTitle[0]"
+      :operateId="0"
       :district-list="provinceList"
       @check-district="checkProvince"
       @selected-checked="selectedProvince"
     ></krry-box>
     <krry-box
-      :titleId="1"
-      :operation="operation[1]"
       ref="city"
+      :operation="boxOperation[1]"
+      :title="boxTitle[1]"
+      :operateId="1"
       :district-list="cityList"
       @check-district="checkCity"
       @selected-checked="selectedCity"
     ></krry-box>
     <krry-box
-      :titleId="2"
-      :operation="operation[2]"
       ref="county"
+      :operation="boxOperation[2]"
+      :title="boxTitle[2]"
+      :operateId="2"
       :district-list="countyList"
       @selected-checked="selectedCountry"
     ></krry-box>
     <span class="inner-center el-icon-d-arrow-right"></span>
     <krry-box
-      :titleId="3"
-      :operation="operation[3]"
       style="width: 260px"
+      :operation="boxOperation[3]"
+      :title="boxTitle[3]"
       :district-list="checkedDistrict"
       @delete-checked="deleteCheck"
     ></krry-box>
@@ -45,15 +48,22 @@ export default {
     wareHouseFlag: {
       type: Boolean
     },
+    boxTitle: {
+      type: Array
+    },
+    boxOperation: {
+      type: Array
+    },
     // 地域数据
     dataList: {
-      type: Object,
-      default: () => {}
+      type: Object
     },
     // 已选数据
     selectedData: {
-      type: Array,
-      default: () => []
+      type: Array
+    },
+    onChangeSelected: {
+      type: Function
     }
   },
   components: {
@@ -61,12 +71,6 @@ export default {
   },
   data() {
     return {
-      operation: [
-        '添加选中省份',
-        '添加选中城市',
-        '添加选中区县',
-        '删除选中地域'
-      ],
       flag: false, // 分仓对应的省id变量的监听器的锁，第一次触发不执行，数据还未初始化
       provinceList: [], // 省级数据
       cityList: [], // 市级数据
@@ -90,6 +94,9 @@ export default {
       if (this.flag && this.wareHouseFlag) {
         this.watchWarehouse(newVal, oldVal)
       }
+    },
+    checkedDistrict(newVal) {
+      this.onChangeSelected(newVal)
     }
   },
   created() {
@@ -122,7 +129,7 @@ export default {
         // 只找出没有包含的省，才添加进selectDistrict
         if (!selectedId.includes(val)) {
           // 查出对应省的名称
-          let title = this.dataList['province'][val]
+          let title = this.dataList.province[val]
           // 省级id添加进selectedIdAry
           selectedIdAry.push(val)
           // 省级对象添加进selectedArray
@@ -141,7 +148,7 @@ export default {
         // 进行比较，如果新值中不包含此id，就是要准备取消，并且第二个条件是必须是已经勾选，才能取消
         if (!newVal.includes(val) && selectedId.includes(val)) {
           // 查出对应省的名称
-          let title = this.dataList['province'][val]
+          let title = this.dataList.province[val]
           // 省级对象添加进selectedArray
           deleteSelected.push({
             id: val,
@@ -155,10 +162,10 @@ export default {
     // 获取省级数据
     getProvince() {
       this.provinceList = [] // 首先清空
-      for (let key in this.dataList['province']) {
+      for (let key in this.dataList.province) {
         this.provinceList.push({
           id: key,
-          text: this.dataList['province'][key]
+          text: this.dataList.province[key]
         })
         // 省级过滤处理
         this.handleFilterProvince()
@@ -170,10 +177,10 @@ export default {
       let flag = true
       if (obj !== undefined) {
         let id = obj.id
-        for (let key in this.dataList['city']) {
+        for (let key in this.dataList.city) {
           if (id === key) {
             // 匹配到的id，将对应的市级数据传递到子组件
-            this.cityList = this.dataList['city'][key]
+            this.cityList = this.dataList.city[key]
             // 过滤处理
             this.handleFilterCity()
             // 过滤处理
@@ -201,10 +208,10 @@ export default {
       let flag = true
       if (obj !== undefined) {
         let id = obj.id
-        for (let key in this.dataList['county']) {
+        for (let key in this.dataList.county) {
           if (id.toString() === key) {
             // 匹配到的id，将对应的区级数据传递到子组件
-            this.countyList = this.dataList['county'][key]
+            this.countyList = this.dataList.county[key]
             // 过滤处理
             this.handleFilterCounty()
             // 获取省级的数据

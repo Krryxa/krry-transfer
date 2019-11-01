@@ -1,6 +1,14 @@
 <template>
   <div id="app">
-    <krry-transfer :dataList="dataList" :selectedData="selectedData"></krry-transfer>
+    <krry-transfer
+      ref="krry"
+      :boxTitle="title"
+      :boxOperation="operation"
+      :dataList="dataList"
+      :selectedData="selectedData"
+      @onChange="onChangeData"
+    ></krry-transfer>
+    <el-button style="margin-top: 100px;" @click="getData">获取数据</el-button>
   </div>
 </template>
 
@@ -9,6 +17,13 @@ export default {
   name: 'App',
   data() {
     return {
+      title: ['自定义省份', '城市', '区县', '请选择选中地域'],
+      operation: [
+        '添加选中省份',
+        '添加选中城市',
+        '添加选中区县（自定义）',
+        '删除选中地域'
+      ],
       dataList: {
         province: {
           '101101': '北京市',
@@ -115,6 +130,15 @@ export default {
           text: '内蒙古自治区'
         }
       ]
+    }
+  },
+  methods: {
+    onChangeData(val) {
+      console.log('数据改变得到', val)
+    },
+    getData() {
+      const data = this.$refs.krry.getSelectedData()
+      console.log('通过钩子得到', data)
     }
   }
 }
