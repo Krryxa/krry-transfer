@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <krry-transfer :districtListList="districtList" :checkedData="checkedData"></krry-transfer>
+    <krry-transfer :dataList="dataList" :selectedData="selectedData"></krry-transfer>
   </div>
 </template>
 
@@ -9,7 +9,7 @@ export default {
   name: 'App',
   data() {
     return {
-      districtList: {
+      dataList: {
         province: {
           '101101': '北京市',
           '101102': '天津市',
@@ -60,7 +60,7 @@ export default {
             }
           ]
         },
-        country: {
+        county: {
           '101164181112': [
             {
               id: 106105142126,
@@ -101,7 +101,7 @@ export default {
           ]
         }
       },
-      checkedData: [
+      selectedData: [
         {
           id: '101101-101101101112',
           text: '北京市-通州区'

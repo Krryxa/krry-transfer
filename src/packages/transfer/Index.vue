@@ -10,8 +10,8 @@
     <krry-container
       :wareHousePro="provinceList"
       :wareHouseFlag="wareHouseFlag"
-      :districtListList="districtListList"
-      :checkedData="checkedData"
+      :dataList="dataList"
+      :selectedData="selectedData"
     ></krry-container>
   </div>
 </template>
@@ -25,11 +25,11 @@ export default {
       type: Array,
       default: () => []
     },
-    districtListList: {
+    dataList: {
       type: Object,
       default: () => {}
     },
-    checkedData: {
+    selectedData: {
       type: Array,
       default: () => []
     }

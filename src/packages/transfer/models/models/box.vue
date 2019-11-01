@@ -6,7 +6,7 @@
         v-model="checkAll"
         @change="handleCheckAllChange"
       >{{title[titleId]}}</el-checkbox>
-      <span class="check-number">{{checkedCities.length}}/{{districtListMock.length}}</span>
+      <span class="check-number">{{selectedDistrict.length}}/{{districtListMock.length}}</span>
     </div>
     <div class="el-transfer-panel__body">
       <div class="el-transfer-panel__filter el-input el-input--small el-input--prefix">
@@ -22,7 +22,7 @@
         </span>
       </div>
       <el-checkbox-group
-        v-model="checkedCities"
+        v-model="selectedDistrict"
         v-if="districtListMock.length > 0"
         @change="handleCheckedChange"
       >
@@ -38,7 +38,7 @@
     <div class="vip-footer">
       <el-button
         type="text"
-        :disabled="checkedCities.length > 0 ? false : true"
+        :disabled="selectedDistrict.length > 0 ? false : true"
         size="small"
         round
         @click="checkedSelected"
@@ -55,8 +55,8 @@ export default {
     titleId: {
       type: Number
     },
+    // 区域数据
     districtList: {
-      // 父组件传递的区域数据
       type: Array
     },
     operation: {
@@ -65,9 +65,9 @@ export default {
   },
   data() {
     return {
-      title: ['省份', '城市', '区县', '选中地区'],
+      title: ['省份', '城市', '区县', '选中地域'],
       districtListMock: [], // 展示的数据 （搜索会自动修改这个数组）
-      checkedCities: [], // 已选择，数据格式：[区域id,id,id...]
+      selectedDistrict: [], // 已选择，数据格式：[区域id,id,id...]
       father: {}, // 父级数据
       isIndeterminate: false,
       checkAll: false,
@@ -93,13 +93,13 @@ export default {
       this.getDistrict()
       // 如果区域数据为空，则已选择的数据也要清空
       if (this.districtList.length === 0) {
-        this.checkedCities = []
+        this.selectedDistrict = []
       }
     },
     // districtListMock 和 checkAll 的监听器
     districtListMock() {
       // 当方框中无已选择的数据时，不能勾选checkBox
-      if (this.checkedCities.length === 0) {
+      if (this.selectedDistrict.length === 0) {
         this.checkAll = false
         this.isIndeterminate = false
       }
@@ -114,7 +114,7 @@ export default {
     getDistrict() {
       this.districtListMock = this.districtList
       // 已选择的清空
-      this.checkedCities = []
+      this.selectedDistrict = []
     },
     // 单选
     handleCheckedChange(value) {
@@ -122,12 +122,11 @@ export default {
       this.checkAll = checkedCount === this.districtListMock.length
       this.isIndeterminate =
         checkedCount > 0 && checkedCount < this.districtListMock.length
-      // 子传父
       this.$emit('check-district', value)
     },
     // 全选
     handleCheckAllChange(val) {
-      this.checkedCities = val ? this.districtListMock.map(val => val) : []
+      this.selectedDistrict = val ? this.districtListMock.map(val => val) : []
       this.isIndeterminate = false
     },
     // 添加至已选 或 删除已选区域
@@ -136,7 +135,7 @@ export default {
       let filterId = []
       if (this.titleId === 0) {
         // 省级添加
-        for (let val of this.checkedCities) {
+        for (let val of this.selectedDistrict) {
           selectedList.push({
             id: val.id,
             text: val.text
@@ -146,7 +145,7 @@ export default {
         this.$emit('selected-checked', selectedList, filterId)
       } else if (this.titleId === 1 || this.titleId === 2) {
         // 市级或县级添加
-        for (let val of this.checkedCities) {
+        for (let val of this.selectedDistrict) {
           selectedList.push({
             id: this.father.id + '-' + val.id,
             text: this.father.text + '-' + val.text
@@ -156,7 +155,7 @@ export default {
         this.$emit('selected-checked', selectedList, filterId)
       } else {
         // 删除已选区域
-        for (let val of this.checkedCities) {
+        for (let val of this.selectedDistrict) {
           selectedList.push({
             id: val.id,
             text: val.text
