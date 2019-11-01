@@ -17,7 +17,7 @@
           placeholder="请输入搜索内容"
           class="el-input__inner"
         />
-        <span class="el-input__prefix">
+        <span class="el-input__prefix" style="left: 0px;">
           <i class="el-input__icon el-icon-search"></i>
         </span>
       </div>
@@ -65,110 +65,109 @@ export default {
   },
   data() {
     return {
-      title: ["省份", "城市", "区域", "选中地区"],
+      title: ['省份', '城市', '区县', '选中地区'],
       districtListMock: [], // 展示的数据 （搜索会自动修改这个数组）
       checkedCities: [], // 已选择，数据格式：[区域id,id,id...]
       father: {}, // 父级数据
       isIndeterminate: false,
       checkAll: false,
-      searchWord: "",
+      searchWord: '',
       buttonAble: true
-    };
+    }
   },
   created() {
-    this.getDistrict();
+    this.getDistrict()
   },
   watch: {
     // 搜索框的监听器
     searchWord(newWord, oldWord) {
       // 重新获取数据
-      this.districtListMock = this.districtList;
+      this.districtListMock = this.districtList
       // 过滤掉数据，保留搜索的数据
       this.districtListMock = this.districtListMock.filter(val =>
         val.text.includes(newWord)
-      );
+      )
     },
     // 当点击省级或市级，自动监听并更新市级或区级的列表
     districtList() {
-      this.getDistrict();
+      this.getDistrict()
       // 如果区域数据为空，则已选择的数据也要清空
       if (this.districtList.length === 0) {
-        this.checkedCities = [];
+        this.checkedCities = []
       }
     },
     // districtListMock 和 checkAll 的监听器
     districtListMock() {
       // 当方框中无已选择的数据时，不能勾选checkBox
       if (this.checkedCities.length === 0) {
-        this.checkAll = false;
-        this.isIndeterminate = false;
+        this.checkAll = false
+        this.isIndeterminate = false
       }
     },
     // 当列表中无数据时，不能勾选checkBox
     checkAll() {
-      this.checkAll =
-        this.districtListMock.length === 0 ? false : this.checkAll;
+      this.checkAll = this.districtListMock.length === 0 ? false : this.checkAll
     }
   },
   methods: {
     // 获取区域数据
     getDistrict() {
-      this.districtListMock = this.districtList;
+      this.districtListMock = this.districtList
       // 已选择的清空
-      this.checkedCities = [];
+      this.checkedCities = []
     },
     // 单选
     handleCheckedChange(value) {
-      let checkedCount = value.length;
-      this.checkAll = checkedCount === this.districtListMock.length;
+      let checkedCount = value.length
+      this.checkAll = checkedCount === this.districtListMock.length
       this.isIndeterminate =
-        checkedCount > 0 && checkedCount < this.districtListMock.length;
+        checkedCount > 0 && checkedCount < this.districtListMock.length
       // 子传父
-      this.$emit("check-district", value);
+      this.$emit('check-district', value)
     },
     // 全选
     handleCheckAllChange(val) {
-      this.checkedCities = val ? this.districtListMock.map(val => val) : [];
-      this.isIndeterminate = false;
+      this.checkedCities = val ? this.districtListMock.map(val => val) : []
+      this.isIndeterminate = false
     },
     // 添加至已选 或 删除已选区域
     checkedSelected() {
-      let selectedList = [];
-      let filterId = [];
+      let selectedList = []
+      let filterId = []
       if (this.titleId === 0) {
         // 省级添加
         for (let val of this.checkedCities) {
           selectedList.push({
             id: val.id,
             text: val.text
-          });
-          filterId.push(val.id);
+          })
+          filterId.push(val.id)
         }
-        this.$emit("selected-checked", selectedList, filterId);
+        this.$emit('selected-checked', selectedList, filterId)
       } else if (this.titleId === 1 || this.titleId === 2) {
         // 市级或县级添加
         for (let val of this.checkedCities) {
           selectedList.push({
-            id: this.father.id + "-" + val.id,
-            text: this.father.text + "-" + val.text
-          });
-          filterId.push(val.id);
+            id: this.father.id + '-' + val.id,
+            text: this.father.text + '-' + val.text
+          })
+          filterId.push(val.id)
         }
-        this.$emit("selected-checked", selectedList, filterId);
+        this.$emit('selected-checked', selectedList, filterId)
       } else {
         // 删除已选区域
         for (let val of this.checkedCities) {
           selectedList.push({
             id: val.id,
             text: val.text
-          });
+          })
         }
-        this.$emit("delete-checked", selectedList);
+        this.$emit('delete-checked', selectedList)
       }
     }
   },
   components: {}
-};
+}
 </script>
 
 <style lang="scss" scoped>

@@ -1,32 +1,25 @@
 <template>
-  <main class="main">
-    <el-form>
-      <!-- 仓库 -->
-      <el-form-item label="仓库：" v-if="warehousesList.length">
-        <el-checkbox-group v-model="warehouseObj" @change="handleWhChange">
-          <el-checkbox
-            :label="item"
-            v-for="(item,index) in warehousesList"
-            :key="index"
-          >{{item.name}}</el-checkbox>
-        </el-checkbox-group>
-      </el-form-item>
-      <!-- 地区 -->
-      <districts
-        :wareHousePro="provinceList"
-        :wareHouseFlag="wareHouseFlag"
-        :districtListList="districtListList"
-        :checkedData="checkedData"
-      ></districts>
-    </el-form>
-  </main>
+  <div class="krry-main">
+    <!-- 仓库 -->
+    <template v-if="warehousesList.length">
+      <el-checkbox-group v-model="warehouseObj" @change="handleWhChange">
+        <el-checkbox :label="item" v-for="(item,index) in warehousesList" :key="index">{{item.name}}</el-checkbox>
+      </el-checkbox-group>
+    </template>
+    <!-- 地区 -->
+    <krry-container
+      :wareHousePro="provinceList"
+      :wareHouseFlag="wareHouseFlag"
+      :districtListList="districtListList"
+      :checkedData="checkedData"
+    ></krry-container>
+  </div>
 </template>
 
 <script>
-import Districts from "./Districts";
-
+import krryContainer from './models/container'
 export default {
-  name: "krry-transfer",
+  name: 'krry-transfer',
   props: {
     warehousesList: {
       type: Array,
@@ -39,7 +32,10 @@ export default {
     checkedData: {
       type: Array,
       default: () => []
-    },
+    }
+  },
+  components: {
+    krryContainer
   },
   data() {
     return {
@@ -78,46 +74,46 @@ export default {
       //     province: ["101108", "101109"]
       //   }
       // ]
-    };
+    }
   },
   created() {
-    this.getWareHouses();
+    this.getWareHouses()
   },
   methods: {
     // 获取仓库数据
     async getWareHouses() {
       // 默认勾选所有仓库
-      this.warehouseObj = this.warehousesList; // 选中的仓库对象
-      this.warehouse = this.warehousesList.map(val => val.key); // 选中的仓库id
+      this.warehouseObj = this.warehousesList // 选中的仓库对象
+      this.warehouse = this.warehousesList.map(val => val.key) // 选中的仓库id
 
-      this.wareHouseFlag = true; // 加载完毕
+      this.wareHouseFlag = true // 加载完毕
       // this.warehousesList 数组：[{key:'', province:[],},...]
       for (let val of this.warehousesList) {
         // 每个数组元素去空格后合并成一个数组
         this.provinceList = this.provinceList.concat(
-          val["province"].map(vq => vq.trim())
-        );
+          val['province'].map(vq => vq.trim())
+        )
       }
     },
     // 点击某个仓库，对应地区联动选择，value - 已选择的仓库对象
     handleWhChange(value) {
-      this.warehouse = value.map(val => val.key);
+      this.warehouse = value.map(val => val.key)
       // 先清空
-      this.provinceList = [];
+      this.provinceList = []
       // value 数组：[{key:'', province:[],},...]
       for (let val of value) {
         // 每个数组元素去空格后合并成一个数组
         this.provinceList = this.provinceList.concat(
-          val["province"].map(vq => vq.trim())
-        );
+          val['province'].map(vq => vq.trim())
+        )
       }
     }
-  },
-  components: {
-    Districts
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
+.krry-main {
+  min-width: 906px;
+}
 </style>
