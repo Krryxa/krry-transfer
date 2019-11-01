@@ -259,4 +259,8 @@ selectedData: [
 ```
 
 ## About
-[Krryblog](https://ainyi.com)  [GitHub](https://github.com/Krryxa/krry-transfer)
+npm 地址：[krry-transfer](https://www.npmjs.com/package/krry-transfer)
+
+博客地址：[Krryblog](https://ainyi.com) 
+
+GitHub：[GitHub](https://github.com/Krryxa/krry-transfer)
