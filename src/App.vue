@@ -17,11 +17,11 @@ export default {
   name: 'App',
   data() {
     return {
-      title: ['自定义省份', '城市', '区县', '请选择选中地域'],
+      title: ['省份', '城市', '区县', '选中地域'],
       operation: [
         '添加选中省份',
         '添加选中城市',
-        '添加选中区县（自定义）',
+        '添加选中区县',
         '删除选中地域'
       ],
       dataList: {
@@ -134,11 +134,11 @@ export default {
   },
   methods: {
     onChangeData(val) {
-      console.log('数据改变得到', val)
+      console.log('监听数据改变：', val)
     },
     getData() {
       const data = this.$refs.krry.getSelectedData()
-      console.log('通过钩子得到', data)
+      console.log('通过钩子获取：', data)
     }
   }
 }
