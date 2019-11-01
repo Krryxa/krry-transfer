@@ -109,11 +109,15 @@ export default {
 |dataList|Object|{}|全部数据对象|
 |selectedData|Object|{}|已选数据对象|
 
+<br>
+
 ### Events
 
 |name|params|description|
 |-|-|-|
 |onChange|String: value：已选数据对象|当已选数据变化时触发的事件|
+
+<br>
 
 ### Methods
 
@@ -253,9 +257,6 @@ selectedData: [
   }
 ]
 ```
-
-## Keywords
-[JavaScript](https://www.npmjs.com/search?q=javaScript) [Vue](https://www.npmjs.com/search?q=vue)
 
 ## About
 [Krryblog](https://ainyi.com)  [GitHub](https://github.com/Krryxa/krry-transfer)

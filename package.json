@@ -1,7 +1,7 @@
 {
   "name": "krry-transfer",
-  "description": "自定义穿梭框组件，实现省市级多选穿梭框组件",
-  "version": "1.0.0",
+  "description": "基于 Element UI 组件的多级多选穿梭框组件",
+  "version": "1.1.2",
   "author": "Krry",
   "license": "MIT",
   "private": false,
@@ -10,6 +10,10 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
+  "keywords": [
+    "javascript",
+    "vue"
+  ],
   "dependencies": {},
   "browserslist": [
     "> 1%",
