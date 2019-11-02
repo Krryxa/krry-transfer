@@ -35,10 +35,10 @@ export default {
     boxOperation: {
       type: Array,
       default: () => [
-        '添加选中省份',
-        '添加选中城市',
-        '添加选中区县',
-        '删除选中地域'
+        '添加省份',
+        '添加城市',
+        '添加区县',
+        '删除地域'
       ]
     },
     dataObj: {

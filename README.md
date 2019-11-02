@@ -100,7 +100,7 @@ Modern browsers and Internet Explorer 10+.
 |name|type|default|description|
 |:-|:-|:-|:-|
 |boxTitle|Array|['省份', '城市', '区县', '选中地域']|按顺序指定每个方框的 title|
-|boxOperation|Array|['添加选中省份', '添加选中城市', '添加选中区县', '删除选中地域']|按顺序指定每个方框的底部操作文案|
+|boxOperation|Array|['添加省份', '添加城市', '添加区县', '删除地域']|按顺序指定每个方框的底部操作文案|
 |dataObj|Object|{}|全部数据对象|
 |selectedData|Object|{}|已选数据对象|
 
