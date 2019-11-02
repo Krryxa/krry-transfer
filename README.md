@@ -1,6 +1,6 @@
 # krry-transfer
 
-> 基于 Element UI 的升级版穿梭框组件；
+> 基于 Element UI 的升级版穿梭框组件
 1. 多级多选穿梭框（常用于省市区三级联动）
 2. 针对数据量庞大的分页穿梭框
 
@@ -251,7 +251,7 @@ If you find KrryTransfer useful, you can buy me a cup of coffee
 ## About
 npm：[krry-transfer](https://www.npmjs.com/package/krry-transfer)
 
-Blog：[Krryblog](https://ainyi.com) 
+Blog：[Krryblog](https://ainyi.com/81) 
 
 GitHub：[krry-transfer](https://github.com/Krryxa/krry-transfer)
 
