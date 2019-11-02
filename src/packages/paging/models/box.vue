@@ -5,8 +5,8 @@
         :indeterminate="isIndeterminate"
         v-model="checkAll"
         @change="handleCheckAllChange"
-      >{{title[titleId]}}</el-checkbox>
-      <span class="check-number">{{checkedCities.length}}/{{districtListMock.length}}</span>
+      >{{title}}</el-checkbox>
+      <span class="check-number">{{checkedData.length}}/{{districtListMock.length}}</span>
     </div>
     <div class="el-transfer-panel__body">
       <div class="el-transfer-panel__filter el-input el-input--small el-input--prefix">
@@ -17,12 +17,12 @@
           placeholder="请输入(在全局中搜索)"
           class="el-input__inner"
         />
-        <span class="el-input__prefix">
+        <span class="el-input__prefix" style="left: 0px;">
           <i class="el-input__icon el-icon-search"></i>
         </span>
       </div>
       <el-checkbox-group
-        v-model="checkedCities"
+        v-model="checkedData"
         v-if="districtListMock.length > 0"
         @change="handleCheckedChange"
       >
@@ -31,7 +31,7 @@
           class="el-transfer-panel__item"
           :label="item"
           :key="item.id"
-        >{{item.name}}</el-checkbox>
+        >{{item.label}}</el-checkbox>
       </el-checkbox-group>
       <p class="no-data" v-else>无数据</p>
     </div>
@@ -45,19 +45,23 @@
 <script>
 export default {
   props: {
-    titleId: {
+    title: {
+      type: String
+    },
+    operateId: {
       type: Number
     },
-    districtList: {
-      // 父组件传递的数据
+    dataShowList: {
       type: Array
+    },
+    pageSize: {
+      type: Number
     }
   },
   data() {
     return {
-      title: ['渠道', '已选中'],
       districtListMock: [], // 展示的数据 （搜索和分页会自动修改这个数组）
-      checkedCities: [], // 已选择，数据格式：[id,id,id...]
+      checkedData: [], // 已选择，数据格式：[id,id,id...]
       isIndeterminate: false,
       checkAll: false,
       searchWord: '',
@@ -69,23 +73,23 @@ export default {
     }
   },
   created() {
-    this.getDistrict()
+    this.initData()
   },
   watch: {
     // 搜索框的监听器
     searchWord(newWord) {
-      this.$emit('search-word', newWord, this.titleId)
+      this.$emit('search-word', newWord, this.operateId)
     },
     // districtListMock 和 checkAll 的监听器
     districtListMock() {
       // 当方框中无已选择的数据时，不能勾选checkBox
-      if (this.checkedCities.length === 0) {
+      if (this.checkedData.length === 0) {
         this.checkAll = false
         this.isIndeterminate = false
       }
     },
-    checkedCities(newWord) {
-      this.$emit('check-disable', newWord, this.titleId)
+    checkedData(newWord) {
+      this.$emit('check-disable', newWord, this.operateId)
     },
     // 当列表中无数据时，不能勾选checkBox
     checkAll() {
@@ -94,28 +98,28 @@ export default {
   },
   methods: {
     // 分页数据
-    getDistrict() {
-      this.len = this.districtList.length
-      this.total = Math.ceil(this.len / 200)
+    initData() {
+      this.len = this.dataShowList.length
+      this.total = Math.ceil(this.len / this.pageSize)
       this.pageIndex = 0
       this.pageData()
     },
     pageData() {
-      this.checkedCities = []
+      this.checkedData = []
       if (this.total > 1 && this.pageIndex < this.total - 1) {
         this.pageIndex === 0
           ? (this.disabledPre = true)
           : (this.disabledPre = false)
         this.disabledNex = false
-        this.districtListMock = this.districtList.slice(
-          this.pageIndex * 200,
-          this.pageIndex * 200 + 200
+        this.districtListMock = this.dataShowList.slice(
+          this.pageIndex * this.pageSize,
+          this.pageIndex * this.pageSize + this.pageSize
         )
       } else {
         this.total > 1 ? (this.disabledPre = false) : (this.disabledPre = true)
         this.disabledNex = true
-        this.districtListMock = this.districtList.slice(
-          this.pageIndex * 200,
+        this.districtListMock = this.dataShowList.slice(
+          this.pageIndex * this.pageSize,
           this.len
         )
       }
@@ -141,10 +145,10 @@ export default {
     },
     // 全选
     handleCheckAllChange(val) {
-      this.checkedCities = val ? this.districtListMock.map(val => val) : []
+      this.checkedData = val ? this.districtListMock.map(val => val) : []
       this.isIndeterminate = false
       // 子传父
-      this.$emit('check-district', this.checkedCities)
+      this.$emit('check-district', this.checkedData)
     }
   },
   components: {}
@@ -155,11 +159,16 @@ export default {
 .district-panel {
   width: 240px;
 
+  .el-transfer-panel__header {
+    .el-checkbox {
+      display: inline-block;
+    }
+  }
   .el-transfer-panel__body {
     height: 300px;
   }
   .el-checkbox-group {
-    height: 230px;
+    height: 248px;
     overflow: auto;
   }
   .check-number {

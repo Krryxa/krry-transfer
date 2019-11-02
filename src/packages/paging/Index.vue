@@ -1,15 +1,18 @@
 <template>
-  <div>
+  <div class="krry-main">
     <krry-box
       ref="noSelect"
-      :titleId="0"
-      :district-list="dataListNoCheck"
+      :title="boxTitle[0]"
+      :operateId="0"
+      :dataShowList="dataListNoCheck"
+      :pageSize="pageSize"
       @check-district="noCheckSelect"
       @search-word="searchWord"
       @check-disable="checkDisable"
     ></krry-box>
     <div class="opera">
       <el-button
+        class="el-transfer__button"
         icon="el-icon-arrow-left"
         type="primary"
         circle
@@ -17,6 +20,7 @@
         :disabled="disablePre"
       ></el-button>
       <el-button
+        class="el-transfer__button"
         icon="el-icon-arrow-right"
         type="primary"
         circle
@@ -26,8 +30,10 @@
     </div>
     <krry-box
       ref="hasSelect"
-      :titleId="1"
-      :district-list="selectListCheck"
+      :title="boxTitle[1]"
+      :operateId="1"
+      :dataShowList="selectListCheck"
+      :pageSize="pageSize"
       @check-district="hasCheckSelect"
       @search-word="searchWord"
       @check-disable="checkDisable"
@@ -40,8 +46,21 @@ import krryBox from './models/box'
 export default {
   name: 'kr-paging',
   props: {
+    boxTitle: {
+      type: Array,
+      default: () => ['待选区', '已选中']
+    },
+    pageSize: {
+      type: Number,
+      default: 200
+    },
     dataList: {
-      type: Array
+      type: Array,
+      default: () => []
+    },
+    selectedData: {
+      type: Array,
+      default: () => []
     }
   },
   components: {
@@ -50,29 +69,7 @@ export default {
   data() {
     return {
       notSelectDataList: [], // 未选中（已过滤出已选)的数据
-      // 默认已选的数据
-      selectList: [
-        {
-          id: 0,
-          name: '这是第0条数据'
-        },
-        {
-          id: 5,
-          name: '这是第5条数据'
-        },
-        {
-          id: 6,
-          name: '这是第6条数据'
-        },
-        {
-          id: 8,
-          name: '这是第8条数据'
-        },
-        {
-          id: 9,
-          name: '这是第9条数据'
-        }
-      ], // 已选中的数据，传递到子组件的数据
+      checkedData: [], // 已选中的数据
 
       dataListNoCheck: [], // 未选中的（或已搜索）传递到子组件的数据
       selectListCheck: [], // 已选中的（或已搜索）传递到子组件的数据
@@ -88,20 +85,29 @@ export default {
     }
   },
   created() {
-    this.getDistrict()
+    this.initData()
   },
   computed: {
     // 传递到后台保存的数据（已选中的数据的 id 数组）
     selectIdList() {
-      return this.selectList.map(item => item.id)
+      return this.checkedData.map(item => item.id)
+    }
+  },
+  watch: {
+    selectIdList(newVal) {
+      // 获取已选数据的监听事件
+      this.$emit('onChange', newVal)
     }
   },
   methods: {
     // 分页数据，初始化数据
-    getDistrict() {
-      this.selectListCheck = this.selectList
+    initData() {
+      this.checkedData = JSON.parse(JSON.stringify(this.selectedData))
+      this.selectListCheck = this.checkedData
       this.notSelectDataList = this.dataList.filter(item1 => {
-        return this.selectListCheck.every(item2 => item2.id !== item1.id)
+        return this.selectListCheck.every(
+          item2 => String(item2.id) !== String(item1.id)
+        )
       })
       this.dataListNoCheck = this.notSelectDataList
     },
@@ -110,26 +116,26 @@ export default {
       if (titleId === 0) {
         this.noSelectkeyword = keyword
         this.dataListNoCheck = this.notSelectDataList.filter(val =>
-          val.name.includes(keyword)
+          val.label.includes(keyword)
         )
       } else {
         this.haSelectkeyword = keyword
-        this.selectListCheck = this.selectList.filter(val =>
-          val.name.includes(keyword)
+        this.selectListCheck = this.checkedData.filter(val =>
+          val.label.includes(keyword)
         )
       }
       let refsName = titleId === 0 ? 'noSelect' : 'hasSelect'
       // 延迟执行
       setTimeout(() => {
-        this.$refs[refsName].getDistrict()
+        this.$refs[refsName].initData()
       }, 0)
     },
     // 检查左右按钮可用性
-    checkDisable(data, id) {
-      if (id === 0) {
-        data.length > 0 ? (this.disableNex = false) : (this.disableNex = true)
+    checkDisable(data, operateId) {
+      if (operateId === 0) {
+        this.disableNex = data.length > 0 ? false : true
       } else {
-        data.length > 0 ? (this.disablePre = false) : (this.disablePre = true)
+        this.disablePre = data.length > 0 ? false : true
       }
     },
     // 未选中区域的选泽
@@ -144,35 +150,50 @@ export default {
     // 添加至已选
     addData() {
       this.notSelectDataList = this.notSelectDataList.filter(item1 => {
-        return this.noCheckData.every(item2 => item2.id !== item1.id)
+        return this.noCheckData.every(
+          item2 => String(item2.id) !== String(item1.id)
+        )
       })
       // 为了排序，选择这种复杂方法，从固定不变的所有数据 dataList 中过滤，顺序就不会乱
-      this.selectList = this.dataList.filter(item1 => {
-        return this.notSelectDataList.every(item2 => item2.id !== item1.id)
+      this.checkedData = this.dataList.filter(item1 => {
+        return this.notSelectDataList.every(
+          item2 => String(item2.id) !== String(item1.id)
+        )
       })
       // 为了排序，舍弃这种效率更高的方法，从而选择上面那种方式
-      // this.selectList = Array.from(dataFilter);
+      // this.checkedData = Array.from(dataFilter);
       // 搜索一次
       this.searchWord(this.noSelectkeyword, 0)
       this.searchWord(this.haSelectkeyword, 1)
     },
     // 从已选中删除
     deleteData() {
-      this.selectList = this.selectList.filter(item1 => {
-        return this.hasCheckData.every(item2 => item2.id !== item1.id)
+      this.checkedData = this.checkedData.filter(item1 => {
+        return this.hasCheckData.every(
+          item2 => String(item2.id) !== String(item1.id)
+        )
       })
       this.notSelectDataList = this.dataList.filter(item1 => {
-        return this.selectList.every(item2 => item2.id !== item1.id)
+        return this.checkedData.every(
+          item2 => String(item2.id) !== String(item1.id)
+        )
       })
       // 搜索一次
       this.searchWord(this.noSelectkeyword, 0)
       this.searchWord(this.haSelectkeyword, 1)
+    },
+    // 提供获取已选数据的钩子
+    getSelectedData() {
+      return this.selectIdList
     }
   }
 }
 </script>
 
 <style lang='scss' scoped>
+.krry-main {
+  min-width: 600px;
+}
 .inner-center {
   margin: 0 5px;
 }
@@ -180,6 +201,7 @@ export default {
   position: relative;
   width: 100px;
   display: inline-block;
+  vertical-align: middle;
 
   .el-button.is-circle {
     border-radius: 50%;

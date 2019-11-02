@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <kr-cascader
-      ref="krry"
+      ref="cascader"
       :boxTitle="title"
       :boxOperation="operation"
       :dataObj="dataObj"
@@ -9,7 +9,13 @@
       @onChange="onChangeData"
     ></kr-cascader>
     <el-button style="margin: 50px;" @click="getData(1)">获取数据</el-button>
-    <kr-paging :dataList="dataList"></kr-paging>
+    <kr-paging
+      ref="paging"
+      :dataList="dataList"
+      :selectedData="selectedData2"
+      :pageSize="100"
+      @onChange="onChangeData2"
+    ></kr-paging>
     <el-button style="margin: 50px;" @click="getData(2)">获取数据</el-button>
   </div>
 </template>
@@ -132,7 +138,29 @@ export default {
           label: '内蒙古自治区'
         }
       ],
-      dataList: []
+      dataList: [],
+      selectedData2: [
+        {
+          id: 0,
+          label: '这是第0条数据'
+        },
+        {
+          id: 5,
+          label: '这是第5条数据'
+        },
+        {
+          id: 6,
+          label: '这是第6条数据'
+        },
+        {
+          id: 8,
+          label: '这是第8条数据'
+        },
+        {
+          id: 9,
+          label: '这是第9条数据'
+        }
+      ]
     }
   },
   created() {
@@ -140,21 +168,26 @@ export default {
   },
   methods: {
     productData() {
-      for (let i = 0; i < 2234; i++) {
+      for (let i = 0; i < 2220; i++) {
         this.dataList.push({
           id: i,
-          name: `这是第${i}条数据`
+          label: `这是第${i}条数据`
         })
       }
     },
     onChangeData(val) {
       console.log('监听数据改变：', val)
     },
+    onChangeData2(val) {
+      console.log('监听数据改变：', val)
+    },
     getData(index) {
       if (index === 1) {
-        const data = this.$refs.krry.getSelectedData()
+        const data = this.$refs.cascader.getSelectedData()
         console.log('通过钩子获取：', data)
       } else {
+        const data = this.$refs.paging.getSelectedData()
+        console.log('通过钩子获取：', data)
       }
     }
   }
