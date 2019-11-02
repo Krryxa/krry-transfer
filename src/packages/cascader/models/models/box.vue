@@ -181,7 +181,7 @@ export default {
     }
   }
   .el-transfer-panel__body {
-    height: 288px;
+    height: 292px;
 
     .el-transfer-panel__filter {
       line-height: 0;

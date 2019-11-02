@@ -165,11 +165,14 @@ export default {
     }
   }
   .el-transfer-panel__body {
-    height: 300px;
+    height: 292px;
   }
   .el-checkbox-group {
-    height: 248px;
+    height: 240px;
     overflow: auto;
+    .el-transfer-panel__item {
+      display: block;
+    }
   }
   .check-number {
     position: absolute;
