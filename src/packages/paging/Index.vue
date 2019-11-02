@@ -52,7 +52,7 @@ export default {
     },
     pageSize: {
       type: Number,
-      default: 200
+      default: 160
     },
     dataList: {
       type: Array,

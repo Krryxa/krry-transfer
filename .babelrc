@@ -1,7 +1,7 @@
 {
   "presets": [
-    ["env", { "modules": false }],
+    ["env", { "modules": "commonjs" }],
     "stage-3"
   ],
-  "plugins": ["transform-runtime"]
+  "plugins": ["transform-runtime", "add-module-exports"]
 }

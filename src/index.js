@@ -4,7 +4,7 @@ import krryPaging from './packages/paging'
 const components = [krryCascader, krryPaging]
 
 const install = function(Vue, opts = {}) {
-  components.map(component => {
+  components.forEach(component => {
     Vue.component(component.name, component)
   })
 }
@@ -15,6 +15,8 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export default {
+  version: '1.2.3',
   install,
-  krryCascader
+  krryCascader,
+  krryPaging
 }

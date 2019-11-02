@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import App from './App.vue'
 import ElementUI from 'element-ui'
-import KrryUI from './index.js'
+import { krryCascader, krryPaging } from './index.js'
 
-Vue.use(KrryUI)
+Vue.use(krryCascader)
+Vue.use(krryPaging)
+
 Vue.use(ElementUI)
 
 new Vue({
