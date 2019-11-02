@@ -182,6 +182,10 @@ export default {
   }
   .el-transfer-panel__body {
     height: 288px;
+
+    .el-transfer-panel__filter {
+      line-height: 0;
+    }
   }
   .el-checkbox-group {
     height: 240px;
