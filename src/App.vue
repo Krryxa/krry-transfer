@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <krry-transfer
+    <kr-cascader
       ref="krry"
       :boxTitle="title"
       :boxOperation="operation"
       :dataObj="dataObj"
       :selectedData="selectedData"
       @onChange="onChangeData"
-    ></krry-transfer>
+    ></kr-cascader>
     <el-button style="margin-top: 100px;" @click="getData">获取数据</el-button>
   </div>
 </template>

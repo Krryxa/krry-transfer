@@ -22,7 +22,7 @@
 <script>
 import krryContainer from './models/container'
 export default {
-  name: 'krry-transfer',
+  name: 'kr-cascader',
   props: {
     warehousesList: {
       type: Array,

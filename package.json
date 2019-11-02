@@ -1,7 +1,7 @@
 {
   "name": "krry-transfer",
   "description": "基于 Element UI 组件的多级多选穿梭框组件",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "author": "Krry",
   "license": "MIT",
   "private": false,

@@ -1,6 +1,6 @@
-import KrryTransfer from './packages/transfer/index.js'
+import krryCascader from './packages/cascader/index.js'
 
-const components = [KrryTransfer]
+const components = [krryCascader]
 
 const install = function(Vue, opts = {}) {
   components.map(component => {
@@ -15,5 +15,5 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default {
   install,
-  KrryTransfer
+  krryCascader
 }
