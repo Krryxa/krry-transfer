@@ -8,7 +8,9 @@
       :selectedData="selectedData"
       @onChange="onChangeData"
     ></kr-cascader>
-    <el-button style="margin-top: 100px;" @click="getData">获取数据</el-button>
+    <el-button style="margin: 50px;" @click="getData(1)">获取数据</el-button>
+    <kr-paging :dataList="dataList"></kr-paging>
+    <el-button style="margin: 50px;" @click="getData(2)">获取数据</el-button>
   </div>
 </template>
 
@@ -129,16 +131,31 @@ export default {
           id: '101111',
           label: '内蒙古自治区'
         }
-      ]
+      ],
+      dataList: []
     }
   },
+  created() {
+    this.productData()
+  },
   methods: {
+    productData() {
+      for (let i = 0; i < 2234; i++) {
+        this.dataList.push({
+          id: i,
+          name: `这是第${i}条数据`
+        })
+      }
+    },
     onChangeData(val) {
       console.log('监听数据改变：', val)
     },
-    getData() {
-      const data = this.$refs.krry.getSelectedData()
-      console.log('通过钩子获取：', data)
+    getData(index) {
+      if (index === 1) {
+        const data = this.$refs.krry.getSelectedData()
+        console.log('通过钩子获取：', data)
+      } else {
+      }
     }
   }
 }

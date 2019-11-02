@@ -1,6 +1,7 @@
-import krryCascader from './packages/cascader/index.js'
+import krryCascader from './packages/cascader'
+import krryPaging from './packages/paging'
 
-const components = [krryCascader]
+const components = [krryCascader, krryPaging]
 
 const install = function(Vue, opts = {}) {
   components.map(component => {
