@@ -4,7 +4,7 @@
       ref="krry"
       :boxTitle="title"
       :boxOperation="operation"
-      :dataList="dataList"
+      :dataObj="dataObj"
       :selectedData="selectedData"
       @onChange="onChangeData"
     ></krry-transfer>
@@ -24,7 +24,7 @@ export default {
         '添加选中区县',
         '删除选中地域'
       ],
-      dataList: {
+      dataObj: {
         province: {
           '101101': '北京市',
           '101102': '天津市',

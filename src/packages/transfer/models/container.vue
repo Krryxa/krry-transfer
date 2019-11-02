@@ -55,7 +55,7 @@ export default {
       type: Array
     },
     // 地域数据
-    dataList: {
+    dataObj: {
       type: Object
     },
     // 已选数据
@@ -129,7 +129,7 @@ export default {
         // 只找出没有包含的省，才添加进selectDistrict
         if (!selectedId.includes(val)) {
           // 查出对应省的名称
-          let title = this.dataList.province[val]
+          let title = this.dataObj.province[val]
           // 省级id添加进selectedIdAry
           selectedIdAry.push(val)
           // 省级对象添加进selectedArray
@@ -148,7 +148,7 @@ export default {
         // 进行比较，如果新值中不包含此id，就是要准备取消，并且第二个条件是必须是已经勾选，才能取消
         if (!newVal.includes(val) && selectedId.includes(val)) {
           // 查出对应省的名称
-          let title = this.dataList.province[val]
+          let title = this.dataObj.province[val]
           // 省级对象添加进selectedArray
           deleteSelected.push({
             id: val,
@@ -162,10 +162,10 @@ export default {
     // 获取省级数据
     getProvince() {
       this.provinceList = [] // 首先清空
-      for (let key in this.dataList.province) {
+      for (let key in this.dataObj.province) {
         this.provinceList.push({
           id: key,
-          label: this.dataList.province[key]
+          label: this.dataObj.province[key]
         })
         // 省级过滤处理
         this.handleFilterProvince()
@@ -177,10 +177,10 @@ export default {
       let flag = true
       if (obj !== undefined) {
         let id = obj.id
-        for (let key in this.dataList.city) {
+        for (let key in this.dataObj.city) {
           if (id === key) {
             // 匹配到的id，将对应的市级数据传递到子组件
-            this.cityList = this.dataList.city[key]
+            this.cityList = this.dataObj.city[key]
             // 过滤处理
             this.handleFilterCity()
             // 过滤处理
@@ -208,10 +208,10 @@ export default {
       let flag = true
       if (obj !== undefined) {
         let id = obj.id
-        for (let key in this.dataList.county) {
+        for (let key in this.dataObj.county) {
           if (id.toString() === key) {
             // 匹配到的id，将对应的区级数据传递到子组件
-            this.countyList = this.dataList.county[key]
+            this.countyList = this.dataObj.county[key]
             // 过滤处理
             this.handleFilterCounty()
             // 获取省级的数据

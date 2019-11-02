@@ -4,9 +4,9 @@
 
 ## Example
 
-![](https://raw.githubusercontent.com/Krryxa/my-transfer/master/resource/WechatIMG351.png)
+![](https://ainyi.com/upload/npm/WechatIMG351.png)
 
-![](https://raw.githubusercontent.com/Krryxa/my-transfer/master/resource/WechatIMG352.png)
+![](https://ainyi.com/upload/npm/WechatIMG352.png)
 
 ## Specialty
 1. 多级多选
@@ -25,7 +25,7 @@ npm install krry-transfer --save
 
 ## Use
 
-依赖 element 样式
+依赖 element checkbox、button 组件和样式
 
 ```js
 import Vue from 'vue'
@@ -34,11 +34,13 @@ import krryTransfer from 'krry-transfer'
 Vue.use(krryTransfer)
 ```
 
+template：
+
 ```html
 <template>
   <div>
     <krry-transfer
-      :dataList="dataList"
+      :dataObj="dataObj"
       :selectedData="selectedData"
       @onChange="onChangeData"
     ></krry-transfer>
@@ -49,7 +51,7 @@ Vue.use(krryTransfer)
 export default {
   data() {
     return {
-      dataList: {
+      dataObj: {
         province: {
           '101101': '北京市',
           '101103': '广东省',
@@ -99,7 +101,7 @@ Modern browsers and Internet Explorer 10+.
 |:-|:-|:-|:-|
 |boxTitle|Array|['省份', '城市', '区县', '选中地域']|按顺序指定每个方框的 title|
 |boxOperation|Array|['添加选中省份', '添加选中城市', '添加选中区县', '删除选中地域']|按顺序指定每个方框的底部操作文案|
-|dataList|Object|{}|全部数据对象|
+|dataObj|Object|{}|全部数据对象|
 |selectedData|Object|{}|已选数据对象|
 
 ### Events
@@ -116,11 +118,12 @@ Modern browsers and Internet Explorer 10+.
 
 <br>
 
-**注：dataList、selectedData 的数据格式如下：**
+**注：dataList、selectedData 的数据格式如下**
 
-**dataList**
+**dataList（全部数据对象）：**
+
 ```js
-dataList: {
+dataObj: {
   province: {
     '省id': 'xx省'
   },
@@ -145,7 +148,7 @@ dataList: {
 
 例如：
 ```js
-dataList: {
+dataObj: {
   province: {
     '101101': '北京市',
     '101102': '天津市',
@@ -190,7 +193,7 @@ dataList: {
 }
 ```
 
-**selectedData**
+**selectedData（已选数据对象）：**
 
 ```js
 selectedData: [
@@ -217,11 +220,11 @@ If you find KrryTransfer useful, you can buy me a cup of coffee
 
 
 ## About
-npm 地址：[krry-transfer](https://www.npmjs.com/package/krry-transfer)
+npm：[krry-transfer](https://www.npmjs.com/package/krry-transfer)
 
-博客地址：[Krryblog](https://ainyi.com) 
+Blog：[Krryblog](https://ainyi.com) 
 
-GitHub：[GitHub](https://github.com/Krryxa/krry-transfer)
+GitHub：[krry-transfer](https://github.com/Krryxa/krry-transfer)
 
 ## LICENSE
 [MIT](https://github.com/Krryxa/krry-transfer/blob/master/LICENSE)

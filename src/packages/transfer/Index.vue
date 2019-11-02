@@ -12,7 +12,7 @@
       :wareHouseFlag="wareHouseFlag"
       :boxTitle="boxTitle"
       :boxOperation="boxOperation"
-      :dataList="dataList"
+      :dataObj="dataObj"
       :selectedData="selectedData"
       :onChangeSelected="emitChangeSelected"
     ></krry-container>
@@ -41,7 +41,7 @@ export default {
         '删除选中地域'
       ]
     },
-    dataList: {
+    dataObj: {
       type: Object,
       default: () => {}
     },
