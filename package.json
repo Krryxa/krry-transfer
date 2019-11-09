@@ -1,7 +1,7 @@
 {
   "name": "krry-transfer",
   "description": "基于 Element UI 的多级多选穿梭框；针对数据量庞大的分页穿梭框",
-  "version": "1.2.9",
+  "version": "1.2.10",
   "author": "Krry",
   "license": "MIT",
   "private": false,
@@ -14,7 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/Krryxa/krry-transfer.git"
   },
-  "homepage": "https://ainyi.com",
+  "homepage": "https://ainyi.com/81",
   "keywords": [
     "javascript",
     "vue",
