@@ -247,7 +247,7 @@ If you find KrryTransfer useful, you can buy me a cup of coffee
 ![pay](https://ainyi.com/upload/pay.jpg)
 
 ## Example of applying this component
-[Example](https://github.com/Krryxa/my-transfer)
+Example of applying this component：[Example](https://github.com/Krryxa/my-transfer)
 
 
 ## About
