@@ -62,6 +62,7 @@ Vue.use(krryTransfer)
     <kr-cascader
       :dataObj="dataObj"
       :selectedData="selectedData"
+      @onChange="onChange"
     ></kr-cascader>
   </div>
 </template>
@@ -98,6 +99,11 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    onChange(val) {
+      console.log('已选中：', val)
+    }
   }
 }
 </script>
@@ -112,6 +118,7 @@ export default {
       :dataList="dataList"
       :selectedData="selectedData"
       :pageSize="100"
+      @onChange="onChange"
     ></kr-paging>
   </div>
 </template>
@@ -137,6 +144,11 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    onChange(val) {
+      console.log('已选中：', val)
+    }
   }
 }
 </script>
@@ -160,7 +172,7 @@ Modern browsers and Internet Explorer 10+.
 
 |name|params|description|
 |:-|:-|:-|
-|onChange|String: value：已选数据集合|当已选数据变化时触发的事件|
+|onChange|Array: value：已选数据集合|当已选数据变化时触发的事件|
 
 ### Methods
 
@@ -232,7 +244,7 @@ selectedData: [
 
 |name|params|description|
 |:-|:-|:-|
-|onChange|String: value：已选数据集合|当已选数据变化时触发的事件|
+|onChange|Array: value：已选数据集合|当已选数据变化时触发的事件|
 
 ### Methods
 
