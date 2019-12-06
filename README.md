@@ -252,12 +252,6 @@ selectedData: [
 |:-|:-|:-|
 |getSelectedData|-|获取已选数据集合的钩子|
 
-
-## Donation
-If you find KrryTransfer useful, you can buy me a cup of coffee
-
-![pay](https://ainyi.com/upload/pay.jpg)
-
 ## Demo of applying this component
 使用 krry-transfer 组件的示例 demo：[my-transfer](https://github.com/Krryxa/my-transfer)
 
@@ -267,6 +261,11 @@ npm：[krry-transfer](https://www.npmjs.com/package/krry-transfer)
 Blog：[Krryblog](https://ainyi.com/81) 
 
 GitHub：[krry-transfer](https://github.com/Krryxa/krry-transfer)
+
+## Donation
+If you find KrryTransfer useful, you can buy me a cup of coffee
+
+![pay](https://ainyi.com/upload/pay.jpg)
 
 ## LICENSE
 [MIT](https://github.com/Krryxa/krry-transfer/blob/master/LICENSE)
