@@ -258,9 +258,8 @@ If you find KrryTransfer useful, you can buy me a cup of coffee
 
 ![pay](https://ainyi.com/upload/pay.jpg)
 
-## Example of applying this component
-Example of applying this component：[Example](https://github.com/Krryxa/my-transfer)
-
+## Demo of applying this component
+使用 krry-transfer 组件的示例 demo：[my-transfer](https://github.com/Krryxa/my-transfer)
 
 ## About
 npm：[krry-transfer](https://www.npmjs.com/package/krry-transfer)
