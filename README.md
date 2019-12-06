@@ -252,6 +252,8 @@ selectedData: [
 |:-|:-|:-|
 |getSelectedData|-|获取已选数据集合的钩子|
 
+<br>
+
 ## Demo of applying this component
 使用 krry-transfer 组件的示例 demo：[my-transfer](https://github.com/Krryxa/my-transfer)
 
