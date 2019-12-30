@@ -14,6 +14,7 @@
       :dataList="dataList"
       :selectedData="selectedData2"
       :pageSize="100"
+      :boxTitle="boxTitle"
       @onChange="onChangeData2"
     ></kr-paging>
     <el-button style="margin: 50px;" @click="getData(2)">获取数据</el-button>
@@ -32,6 +33,7 @@ export default {
         '添加选中区县',
         '删除选中地域'
       ],
+      boxTitle: ['渠道', '选中'],
       dataObj: {},
       selectedData: [],
       dataList: [],
