@@ -97,6 +97,18 @@ export default {
     selectIdList(newVal) {
       // 获取已选数据的监听事件
       this.$emit('onChange', newVal)
+    },
+    dataList: {
+      handler() {
+        this.initData()
+      },
+      deep: true
+    },
+    selectedData: {
+      handler() {
+        this.initData()
+      },
+      deep: true
     }
   },
   methods: {

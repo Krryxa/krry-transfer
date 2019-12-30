@@ -94,6 +94,12 @@ export default {
     // 当列表中无数据时，不能勾选checkBox
     checkAll() {
       this.checkAll = this.districtListMock.length === 0 ? false : this.checkAll
+    },
+    dataShowList: {
+      handler() {
+        this.initData()
+      },
+      deep: true
     }
   },
   methods: {

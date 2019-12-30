@@ -140,31 +140,43 @@ export default {
       ],
       dataList: [],
       selectedData2: [
-        {
-          id: 0,
-          label: '这是第0条数据'
-        },
-        {
-          id: 5,
-          label: '这是第5条数据'
-        },
-        {
-          id: 6,
-          label: '这是第6条数据'
-        },
-        {
-          id: 8,
-          label: '这是第8条数据'
-        },
-        {
-          id: 9,
-          label: '这是第9条数据'
-        }
+        // {
+        //   id: 0,
+        //   label: '这是第0条数据'
+        // },
+        // {
+        //   id: 5,
+        //   label: '这是第5条数据'
+        // },
+        // {
+        //   id: 6,
+        //   label: '这是第6条数据'
+        // },
+        // {
+        //   id: 8,
+        //   label: '这是第8条数据'
+        // },
+        // {
+        //   id: 9,
+        //   label: '这是第9条数据'
+        // }
       ]
     }
   },
   created() {
-    this.productData()
+    // this.productData()
+    setTimeout(() => {
+      this.dataList.push({
+        id: '006ef4f1c84146e685fdcdc428d81427',
+        label: '这是第1条数据'
+      })
+    }, 1000)
+    setTimeout(() => {
+      this.dataList.push({
+        id: '006ef4f1c84146e68ew5fdcdc428d81427',
+        label: '这是第2条数据'
+      })
+    }, 2000)
   },
   methods: {
     productData() {
