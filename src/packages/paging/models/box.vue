@@ -27,10 +27,10 @@
         @change="handleCheckedChange"
       >
         <el-checkbox
-          v-for="item in districtListMock"
+          v-for="(item, index) in districtListMock"
           class="el-transfer-panel__item"
           :label="item"
-          :key="item.id"
+          :key="index"
         >{{item.label}}</el-checkbox>
       </el-checkbox-group>
       <p class="no-data" v-else>无数据</p>

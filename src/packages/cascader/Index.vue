@@ -95,6 +95,20 @@ export default {
   created() {
     this.getWareHouses()
   },
+  watch: {
+    dataObj: {
+      handler() {
+        this.getWareHouses()
+      },
+      deep: true
+    },
+    selectedData: {
+      handler() {
+        this.getWareHouses()
+      },
+      deep: true
+    }
+  },
   methods: {
     // 获取仓库数据
     async getWareHouses() {

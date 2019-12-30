@@ -88,6 +88,18 @@ export default {
     }
   },
   watch: {
+    dataObj: {
+      handler() {
+        this.getDistrict()
+      },
+      deep: true
+    },
+    selectedData: {
+      handler() {
+        this.getDistrict()
+      },
+      deep: true
+    },
     // 监听点击分仓，所自动勾选的省
     wareHousePro(newVal, oldVal) {
       // 当区域数据和分仓数据加载后才能解锁
