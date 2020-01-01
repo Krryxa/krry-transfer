@@ -197,6 +197,18 @@ export default {
     // 提供获取已选数据的钩子
     getSelectedData() {
       return this.selectIdList
+    },
+    clearQueryInp(position) {
+      switch (position) {
+        case 'left':
+          this.$refs.noSelect.searchWord = ''
+          break
+        case 'right':
+          this.$refs.hasSelect.searchWord = ''
+          break
+        default:
+          break
+      }
     }
   }
 }

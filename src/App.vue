@@ -18,6 +18,8 @@
       @onChange="onChangeData2"
     ></kr-paging>
     <el-button style="margin: 50px;" @click="getData(2)">获取数据</el-button>
+    <el-button style="margin: 50px;" @click="clearQuery('left')">清空左边搜索框</el-button>
+    <el-button style="margin: 50px;" @click="clearQuery('right')">清空右边搜索框</el-button>
   </div>
 </template>
 
@@ -199,6 +201,9 @@ export default {
         const data = this.$refs.paging.getSelectedData()
         console.log('通过钩子获取：', data)
       }
+    },
+    clearQuery(position) {
+      this.$refs.paging.clearQueryInp(position)
     }
   }
 }
