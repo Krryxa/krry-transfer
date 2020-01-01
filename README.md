@@ -173,7 +173,7 @@ Modern browsers and Internet Explorer 10+.
 
 |name|params|description|
 |:-|:-|:-|
-|onChange|Array: value：已选数据集合|当已选数据变化时触发的事件|
+|onChange|Array: value（已选数据集合）|当已选数据变化时触发的事件|
 
 ### Methods
 
@@ -245,14 +245,14 @@ selectedData: [
 
 |name|params|description|
 |:-|:-|:-|
-|onChange|Array: value：已选数据集合|当已选数据变化时触发的事件|
+|onChange|Array: value（已选数据集合）|当已选数据变化时触发的事件|
 
 ### Methods
 
 |name|params|description|
 |:-|:-|:-|
 |getSelectedData|-|获取已选数据集合的钩子|
-|clearQueryInp|'left' / 'right'|清空某个面板的搜索框|
+|clearQueryInp|String: 'left' / 'right'|清空某个面板的搜索框|
 
 <br>
 
