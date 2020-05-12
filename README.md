@@ -6,12 +6,13 @@
 
 ## Example
 **kr-cascader**
+
+![](https://ainyi.com/upload/npm/kr_cascader.gif)
+
 ![](https://ainyi.com/upload/npm/WechatIMG351.png)
 
-![](https://ainyi.com/upload/npm/WechatIMG352.png)
-
 **kr-paging**
-![](https://ainyi.com/upload/npm/WechatIMG12.png)
+![](https://ainyi.com/upload/npm/kr_paging.gif)
 
 ## Specialty
 **kr-cascader 多级多选穿梭框**
