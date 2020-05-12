@@ -12,6 +12,7 @@
 ![](https://ainyi.com/upload/npm/WechatIMG351.png)
 
 **kr-paging**
+
 ![](https://ainyi.com/upload/npm/kr_paging.gif)
 
 ## Specialty

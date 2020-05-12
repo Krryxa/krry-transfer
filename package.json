@@ -1,7 +1,7 @@
 {
   "name": "krry-transfer",
   "description": "基于 Element UI 的多级多选穿梭框；针对数据量庞大的分页穿梭框",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "author": "Krry",
   "license": "MIT",
   "private": false,
