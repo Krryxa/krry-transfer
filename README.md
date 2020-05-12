@@ -168,6 +168,8 @@ Modern browsers and Internet Explorer 10+.
 |boxOperation|Array|['添加省份', '添加城市', '添加区县', '删除地域']|按顺序指定每个方框底部的操作文案|
 |dataObj|Object|{}|kr-cascader 的数据源|
 |selectedData|Array|[]|已选数据集合|
+|filterable|Boolean|false|是否可搜索|
+|filter-placeholder|String|请输入搜索内容|搜索框占位符|
 
 ### Events
 
@@ -240,6 +242,8 @@ selectedData: [
 |pageSize|Number|160|分页大小|
 |dataList|Array|[]|kr-paging 的数据源|
 |selectedData|Array|[]|已选数据集合|
+|filterable|Boolean|false|是否可搜索|
+|filter-placeholder|String|请输入(在全局中搜索)|搜索框占位符|
 
 ### Events
 
