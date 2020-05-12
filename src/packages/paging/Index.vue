@@ -6,6 +6,8 @@
       :operateId="0"
       :dataShowList="dataListNoCheck"
       :pageSize="pageSize"
+      :filterable="filterable"
+      :filter-placeholder="filterPlaceholder"
       @check-district="noCheckSelect"
       @search-word="searchWord"
       @check-disable="checkDisable"
@@ -34,6 +36,8 @@
       :operateId="1"
       :dataShowList="selectListCheck"
       :pageSize="pageSize"
+      :filterable="filterable"
+      :filter-placeholder="filterPlaceholder"
       @check-district="hasCheckSelect"
       @search-word="searchWord"
       @check-disable="checkDisable"
@@ -61,6 +65,14 @@ export default {
     selectedData: {
       type: Array,
       default: () => []
+    },
+    filterable: {
+      type: Boolean,
+      default: () => false
+    },
+    filterPlaceholder: {
+      type: String,
+      default: () => '请输入(在全局中搜索)'
     }
   },
   components: {

@@ -6,6 +6,8 @@
       :boxOperation="operation"
       :dataObj="dataObj"
       :selectedData="selectedData"
+      :filterable="true"
+      filter-placeholder="请输入内容哦~"
       @onChange="onChangeData"
     ></kr-cascader>
     <el-button style="margin: 50px;" @click="getData(1)">获取数据</el-button>
@@ -15,6 +17,8 @@
       :selectedData="selectedData2"
       :pageSize="100"
       :boxTitle="boxTitle"
+      :filterable="true"
+      filter-placeholder="请输入内容~"
       @onChange="onChangeData2"
     ></kr-paging>
     <el-button style="margin: 50px;" @click="getData(2)">获取数据</el-button>

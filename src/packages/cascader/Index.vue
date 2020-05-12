@@ -15,6 +15,8 @@
       :dataObj="dataObj"
       :selectedData="selectedData"
       :onChangeSelected="emitChangeSelected"
+      :filterable="filterable"
+      :filter-placeholder="filterPlaceholder"
     ></krry-container>
   </div>
 </template>
@@ -48,6 +50,14 @@ export default {
     selectedData: {
       type: Array,
       default: () => []
+    },
+    filterable: {
+      type: Boolean,
+      default: () => false
+    },
+    filterPlaceholder: {
+      type: String,
+      default: () => '请输入搜索内容'
     }
   },
   components: {

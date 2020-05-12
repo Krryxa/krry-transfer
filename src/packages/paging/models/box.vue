@@ -9,12 +9,12 @@
       <span class="check-number">{{checkedData.length}}/{{districtListMock.length}}</span>
     </div>
     <div class="el-transfer-panel__body">
-      <div class="el-transfer-panel__filter el-input el-input--small el-input--prefix">
+      <div v-if="filterable" class="el-transfer-panel__filter el-input el-input--small el-input--prefix">
         <input
           type="text"
           v-model="searchWord"
           autocomplete="off"
-          placeholder="请输入(在全局中搜索)"
+          :placeholder="filterPlaceholder"
           class="el-input__inner"
         />
         <span class="el-input__prefix" style="left: 0px;">
@@ -29,6 +29,7 @@
         <el-checkbox
           v-for="(item, index) in districtListMock"
           class="el-transfer-panel__item"
+          :title="item.label"
           :label="item"
           :key="index"
         >{{item.label}}</el-checkbox>
@@ -56,6 +57,12 @@ export default {
     },
     pageSize: {
       type: Number
+    },
+    filterable: {
+      type: Boolean
+    },
+    filterPlaceholder: {
+      type: String
     }
   },
   data() {
@@ -172,8 +179,10 @@ export default {
   }
   .el-transfer-panel__body {
     height: 292px;
+    padding: 6px 0;
 
     .el-transfer-panel__filter {
+      margin: 6px 14px 12px;
       line-height: 0;
     }
   }
@@ -193,6 +202,7 @@ export default {
     font-weight: 400;
   }
   .no-data {
+    font-size: 14px;
     margin: 0;
     height: 30px;
     line-height: 30px;

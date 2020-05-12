@@ -6,6 +6,8 @@
       :title="boxTitle[0]"
       :operateId="0"
       :district-list="provinceList"
+      :filterable="filterable"
+      :filter-placeholder="filterPlaceholder"
       @check-district="checkProvince"
       @selected-checked="selectedProvince"
     ></krry-box>
@@ -15,6 +17,8 @@
       :title="boxTitle[1]"
       :operateId="1"
       :district-list="cityList"
+      :filterable="filterable"
+      :filter-placeholder="filterPlaceholder"
       @check-district="checkCity"
       @selected-checked="selectedCity"
     ></krry-box>
@@ -24,6 +28,8 @@
       :title="boxTitle[2]"
       :operateId="2"
       :district-list="countyList"
+      :filterable="filterable"
+      :filter-placeholder="filterPlaceholder"
       @selected-checked="selectedCountry"
     ></krry-box>
     <span class="inner-center el-icon-d-arrow-right"></span>
@@ -32,6 +38,8 @@
       :operation="boxOperation[3]"
       :title="boxTitle[3]"
       :district-list="checkedDistrict"
+      :filterable="filterable"
+      :filter-placeholder="filterPlaceholder"
       @delete-checked="deleteCheck"
     ></krry-box>
   </div>
@@ -64,6 +72,12 @@ export default {
     },
     onChangeSelected: {
       type: Function
+    },
+    filterable: {
+      type: Boolean
+    },
+    filterPlaceholder: {
+      type: String
     }
   },
   components: {
