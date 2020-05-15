@@ -155,21 +155,7 @@ export default {
           item2 => String(item2.id) !== String(item1.id)
         )
       })
-      this.watchEmptyNoSelect()
       this.dataListNoCheck = this.notSelectDataList
-    },
-    // 监听待选区数据为空的情况
-    watchEmptyNoSelect() {
-      if (this.async && !this.notSelectDataList.length) {
-        // 当前页数据为空，已全部加入到已选区
-        const refNoSelect = this.$refs.noSelect
-        if (!refNoSelect.disabledNex) {
-          // 下一页按钮可点击，则自动点击”下一页“
-          refNoSelect.next()
-        } else if (!refNoSelect.disabledPre) {
-          refNoSelect.prev()
-        }
-      }
     },
     searchWord(keyword, titleId) {
       // 过滤掉数据，保留搜索的数据
@@ -224,7 +210,6 @@ export default {
       // })
       // 这种效率更高的方法，但不能排序
       this.checkedData.push(...this.noCheckData)
-      this.watchEmptyNoSelect()
       // 搜索一次
       this.searchWord(this.noSelectkeyword, 0)
       this.searchWord(this.haSelectkeyword, 1)
