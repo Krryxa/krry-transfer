@@ -8,9 +8,13 @@
       :pageSize="pageSize"
       :filterable="filterable"
       :filter-placeholder="filterPlaceholder"
+      :pageTexts="pageTexts"
+      :async="async"
+      :isLastPage="isLastPage"
       @check-district="noCheckSelect"
       @search-word="searchWord"
       @check-disable="checkDisable"
+      @get-data="getData"
     ></krry-box>
     <div class="opera">
       <el-button
@@ -38,6 +42,7 @@
       :pageSize="pageSize"
       :filterable="filterable"
       :filter-placeholder="filterPlaceholder"
+      :pageTexts="pageTexts"
       @check-district="hasCheckSelect"
       @search-word="searchWord"
       @check-disable="checkDisable"
@@ -73,6 +78,22 @@ export default {
     filterPlaceholder: {
       type: String,
       default: () => '请输入(在全局中搜索)'
+    },
+    pageTexts: {
+      type: Array,
+      default: () => ['上一页', '下一页']
+    },
+    sort: {
+      type: Boolean,
+      default: () => false
+    },
+    async: {
+      type: Boolean,
+      default: () => false
+    },
+    getPageData: {
+      type: Function,
+      default: () => []
     }
   },
   components: {
@@ -93,16 +114,24 @@ export default {
       haSelectkeyword: '',
 
       disablePre: true,
-      disableNex: true
+      disableNex: true,
+
+      manualEmpty: false, // 是否手动将已选区数据置为空
+
+      asyncDataList: [], // 异步请求的数据源
+      isLastPage: false // 异步请求是否是最后一页
     }
   },
   created() {
-    this.initData()
+    this.async ? this.getData(1) : this.initData()
   },
   computed: {
     // 传递到后台保存的数据（已选中的数据的 id 数组）
     selectIdList() {
       return this.checkedData.map(item => item.id)
+    },
+    originList() {
+      return this.async ? this.asyncDataList : this.dataList
     }
   },
   watch: {
@@ -112,7 +141,7 @@ export default {
     },
     dataList: {
       handler() {
-        this.initData()
+        !this.async && this.initData()
       },
       deep: true
     },
@@ -124,11 +153,14 @@ export default {
     }
   },
   methods: {
-    // 分页数据，初始化数据
+    // 分页数据，初始化数据，过滤已选数据
     initData() {
-      this.checkedData = JSON.parse(JSON.stringify(this.selectedData))
+      // this.checkedData 为空 且 从来没有将已选区置为空，则从 selectedData 获取
+      if (!this.checkedData.length && !this.manualEmpty) {
+        this.checkedData = JSON.parse(JSON.stringify(this.selectedData))
+      }
       this.selectListCheck = this.checkedData
-      this.notSelectDataList = this.dataList.filter(item1 => {
+      this.notSelectDataList = this.originList.filter(item1 => {
         return this.selectListCheck.every(
           item2 => String(item2.id) !== String(item1.id)
         )
@@ -151,7 +183,7 @@ export default {
       let refsName = titleId === 0 ? 'noSelect' : 'hasSelect'
       // 延迟执行
       setTimeout(() => {
-        this.$refs[refsName].initData()
+        !this.async && this.$refs[refsName].initData()
       }, 0)
     },
     // 检查左右按钮可用性
@@ -173,31 +205,40 @@ export default {
     // 关键：把未选择的数据当做已选择的过滤数组，把已选择的数据当做未选择的过滤数组，在全局data进行过滤，最后进行一次搜索
     // 添加至已选
     addData() {
+      // 待选区数据过滤
       this.notSelectDataList = this.notSelectDataList.filter(item1 => {
         return this.noCheckData.every(
           item2 => String(item2.id) !== String(item1.id)
         )
       })
-      // 为了排序，选择这种复杂方法，从固定不变的所有数据 dataList 中过滤，顺序就不会乱
-      this.checkedData = this.dataList.filter(item1 => {
-        return this.notSelectDataList.every(
-          item2 => String(item2.id) !== String(item1.id)
-        )
-      })
-      // 为了排序，舍弃这种效率更高的方法，从而选择上面那种方式
-      // this.checkedData = Array.from(dataFilter);
+      // 已选区数据增加
+      if (!this.async && this.sort) {
+        // 排序，从固定不变的所有数据中过滤，顺序就不会乱。但若数据量大就会比较卡
+        // 异步分页不支持排序
+        this.checkedData = this.originList.filter(item1 => {
+          return this.notSelectDataList.every(
+            item2 => String(item2.id) !== String(item1.id)
+          )
+        })
+      } else {
+        // 这种效率更高的方法，但不能排序
+        this.checkedData.push(...this.noCheckData)
+      }
       // 搜索一次
       this.searchWord(this.noSelectkeyword, 0)
       this.searchWord(this.haSelectkeyword, 1)
     },
     // 从已选中删除
     deleteData() {
+      // 已选区数据过滤
       this.checkedData = this.checkedData.filter(item1 => {
         return this.hasCheckData.every(
           item2 => String(item2.id) !== String(item1.id)
         )
       })
-      this.notSelectDataList = this.dataList.filter(item1 => {
+      this.manualEmpty = !this.checkedData.length
+      // 待选区数据增加
+      this.notSelectDataList = this.originList.filter(item1 => {
         return this.checkedData.every(
           item2 => String(item2.id) !== String(item1.id)
         )
@@ -221,6 +262,19 @@ export default {
         default:
           break
       }
+    },
+    async getData(pageIndex) {
+      const resData = await this.getPageData(pageIndex, this.pageSize)
+      if (resData && resData.length) {
+        this.asyncDataList = resData
+        this.dataListNoCheck = resData
+        this.initData()
+        this.isLastPage = resData.length < this.pageSize
+      } else {
+        this.dataListNoCheck = []
+        this.isLastPage = true
+      }
+      // console.log('传递了', resData)
     }
   }
 }
