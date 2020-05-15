@@ -19,7 +19,9 @@
       :boxTitle="boxTitle"
       :filterable="true"
       filter-placeholder="请输入内容~"
-      :async="true"
+      :pageTexts="['pre', 'next']"
+      :sort="true"
+      :async="false"
       :getPageData="getPageData"
       @onChange="onChangeData2"
     ></kr-paging>

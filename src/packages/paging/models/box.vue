@@ -37,8 +37,8 @@
       <p class="no-data" v-else>无数据</p>
     </div>
     <div class="vip-footer">
-      <el-button class="v-page" @click="prev" plain :disabled="disabledPre">上一页</el-button>
-      <el-button class="v-page" @click="next" plain :disabled="disabledNex">下一页</el-button>
+      <el-button class="v-page" @click="prev" plain :disabled="disabledPre">{{ pageTexts[0] }}</el-button>
+      <el-button class="v-page" @click="next" plain :disabled="disabledNex">{{ pageTexts[1] }}</el-button>
     </div>
   </div>
 </template>
@@ -63,6 +63,9 @@ export default {
     },
     filterPlaceholder: {
       type: String
+    },
+    pageTexts: {
+      type: Array
     },
     async: {
       type: Boolean,

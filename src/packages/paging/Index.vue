@@ -8,6 +8,7 @@
       :pageSize="pageSize"
       :filterable="filterable"
       :filter-placeholder="filterPlaceholder"
+      :pageTexts="pageTexts"
       :async="async"
       :isLastPage="isLastPage"
       @check-district="noCheckSelect"
@@ -41,6 +42,7 @@
       :pageSize="pageSize"
       :filterable="filterable"
       :filter-placeholder="filterPlaceholder"
+      :pageTexts="pageTexts"
       @check-district="hasCheckSelect"
       @search-word="searchWord"
       @check-disable="checkDisable"
@@ -76,6 +78,14 @@ export default {
     filterPlaceholder: {
       type: String,
       default: () => '请输入(在全局中搜索)'
+    },
+    pageTexts: {
+      type: Array,
+      default: () => ['上一页', '下一页']
+    },
+    sort: {
+      type: Boolean,
+      default: () => false
     },
     async: {
       type: Boolean,
@@ -202,14 +212,18 @@ export default {
         )
       })
       // 已选区数据增加
-      // 为了排序，选择这种复杂方法，从固定不变的所有数据 dataList 中过滤，顺序就不会乱
-      // this.checkedData = this.originList.filter(item1 => {
-      //   return this.notSelectDataList.every(
-      //     item2 => String(item2.id) !== String(item1.id)
-      //   )
-      // })
-      // 这种效率更高的方法，但不能排序
-      this.checkedData.push(...this.noCheckData)
+      if (!this.async && this.sort) {
+        // 排序，从固定不变的所有数据中过滤，顺序就不会乱。但若数据量大就会比较卡
+        // 异步分页不支持排序
+        this.checkedData = this.originList.filter(item1 => {
+          return this.notSelectDataList.every(
+            item2 => String(item2.id) !== String(item1.id)
+          )
+        })
+      } else {
+        // 这种效率更高的方法，但不能排序
+        this.checkedData.push(...this.noCheckData)
+      }
       // 搜索一次
       this.searchWord(this.noSelectkeyword, 0)
       this.searchWord(this.haSelectkeyword, 1)
