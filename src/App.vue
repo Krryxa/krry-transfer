@@ -241,14 +241,14 @@ export default {
             pageSize = 56
           }
           for (i ; i < pageSize; i++) {
-            const id = Math.floor(Math.random() * 100000 + 1)
+            const id = pageIndex + '_' + i
             resData.push({
               id: id,
-              label: `${pageIndex}，异步获取数据 ${id}`
+              label: `异步获取数据 ${id}`
             })
           }
           resolve(resData)
-        }, 300)
+        }, 100)
       })
     }
   }
