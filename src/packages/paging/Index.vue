@@ -8,9 +8,12 @@
       :pageSize="pageSize"
       :filterable="filterable"
       :filter-placeholder="filterPlaceholder"
+      :async="async"
+      :isLastPage="isLastPage"
       @check-district="noCheckSelect"
       @search-word="searchWord"
       @check-disable="checkDisable"
+      @get-data="getData"
     ></krry-box>
     <div class="opera">
       <el-button
@@ -73,6 +76,14 @@ export default {
     filterPlaceholder: {
       type: String,
       default: () => '请输入(在全局中搜索)'
+    },
+    async: {
+      type: Boolean,
+      default: () => false
+    },
+    getPageData: {
+      type: Function,
+      default: () => []
     }
   },
   components: {
@@ -93,11 +104,13 @@ export default {
       haSelectkeyword: '',
 
       disablePre: true,
-      disableNex: true
+      disableNex: true,
+
+      isLastPage: false // 异步请求是否是最后一页
     }
   },
   created() {
-    this.initData()
+    this.async ? this.getData(1) : this.initData()
   },
   computed: {
     // 传递到后台保存的数据（已选中的数据的 id 数组）
@@ -112,7 +125,7 @@ export default {
     },
     dataList: {
       handler() {
-        this.initData()
+        !this.async && this.initData()
       },
       deep: true
     },
@@ -124,11 +137,11 @@ export default {
     }
   },
   methods: {
-    // 分页数据，初始化数据
-    initData() {
+    // 分页数据，初始化数据，过滤已选数据
+    initData(originList = this.async ? this.dataListNoCheck : this.dataList) {
       this.checkedData = JSON.parse(JSON.stringify(this.selectedData))
       this.selectListCheck = this.checkedData
-      this.notSelectDataList = this.dataList.filter(item1 => {
+      this.notSelectDataList = originList.filter(item1 => {
         return this.selectListCheck.every(
           item2 => String(item2.id) !== String(item1.id)
         )
@@ -221,6 +234,18 @@ export default {
         default:
           break
       }
+    },
+    async getData(pageIndex) {
+      const resData = await this.getPageData(pageIndex, this.pageSize)
+      if (resData && resData.length) {
+        this.dataListNoCheck = resData
+        this.initData()
+        this.isLastPage = resData.length < this.pageSize
+      } else {
+        this.dataListNoCheck = []
+        this.isLastPage = true
+      }
+      // console.log('传递了', resData)
     }
   }
 }

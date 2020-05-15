@@ -63,6 +63,13 @@ export default {
     },
     filterPlaceholder: {
       type: String
+    },
+    async: {
+      type: Boolean,
+      default: () => false // 已选区不做异步
+    },
+    isLastPage: {
+      type: Boolean
     }
   },
   data() {
@@ -76,7 +83,8 @@ export default {
       total: 0,
       pageIndex: 0,
       disabledPre: true,
-      disabledNex: false
+      disabledNex: false,
+      asyncPageIndex: 1 // 异步分页的 pageIndex
     }
   },
   created() {
@@ -104,7 +112,7 @@ export default {
     },
     dataShowList: {
       handler() {
-        this.initData()
+        this.async ? this.asyncInitData() : this.initData()
       },
       deep: true
     }
@@ -137,15 +145,37 @@ export default {
         )
       }
     },
+    // 异步获取的数据，检查分页按钮可用性
+    asyncInitData() {
+      // 取消勾选
+      this.checkedData = []
+      // 分页按钮可用性
+      this.disabledNex = this.isLastPage
+      this.disabledPre = this.asyncPageIndex <= 1
+      // 赋值
+      this.districtListMock = this.dataShowList
+    },
     // 上一页
     prev() {
-      this.pageIndex > 0 && --this.pageIndex
-      this.pageData()
+      if (this.async) {
+        // 异步获取数据
+        this.disabledPre = true
+        this.$emit('get-data', --this.asyncPageIndex)
+      } else {
+        this.pageIndex > 0 && --this.pageIndex
+        this.pageData()
+      }
     },
     // 下一页
     next() {
-      this.pageIndex <= this.total - 1 && ++this.pageIndex
-      this.pageData()
+      if (this.async) {
+        // 异步获取数据
+        this.disabledNex = true
+        this.$emit('get-data', ++this.asyncPageIndex)
+      } else {
+        this.pageIndex <= this.total - 1 && ++this.pageIndex
+        this.pageData()
+      }
     },
     // 单选
     handleCheckedChange(value) {
