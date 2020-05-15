@@ -31,6 +31,7 @@
 3. 全选只在当前页里的全选
 4. 添加已选/删除已选 将自动计算分页条目
 5. 穿梭框左右两个框的联动
+6. 支持分页异步请求数据
 
 ## Install
 
@@ -246,6 +247,10 @@ selectedData: [
 |selectedData|Array|[]|已选数据集合|
 |filterable|Boolean|false|是否可搜索|
 |filter-placeholder|String|请输入(在全局中搜索)|搜索框占位符|
+|pageTexts|Array|['上一页', '下一页']|分页按钮文案|
+|sort|Boolean|false|已选区数据是否根据待选区的数据进行排序，设置该属性后，性能有所下降；当 async 为 true 时，sort 属性无效|
+|async|Boolean|false|分页是否异步请求，当设置为 true，dataList 无需设置，请设置 getPageData 方法|
+|getPageData|Function|() => []|异步请求的方法，参数：pageIndex, pageSize|
 
 ### Events
 
@@ -261,6 +266,40 @@ selectedData: [
 |clearQueryInp|String: 'left' / 'right'|清空某个面板的搜索框|
 
 <br>
+
+**注：当设置分页异步请求接口数据时，设置方法如下**
+
+1. async 属性设置为 true
+2. dataList 无需设置
+3. 第一页和后续分页的数据都是通过设置 getPageData 属性方法获取
+
+*注意：async 若为 true，sort 属性无效*
+
+```html
+<kr-paging
+  :selectedData="selectedData"
+  :async="true"
+  :getPageData="getPageData"
+></kr-paging>
+```
+
+类型为 Function 的绑定属性：getPageData 配置如下
+|name|params|return|
+|:-|:-|:-|
+|getPageData|pageIndex, pageSize|Promise|
+```js
+methods: {
+  getPageData(pageIndex, pageSize) {
+    // 异步获取分页数据
+    return new Promise((resolve, reject) => {
+      // ... 掉接口请求数据
+      // resData 的数据结构如 dataList、selectedData 一样
+      resolve(resData)
+    })
+  }
+}
+```
+
 
 ## Demo of applying this component
 使用 krry-transfer 组件的示例 demo：[my-transfer](https://github.com/Krryxa/my-transfer)

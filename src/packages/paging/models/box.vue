@@ -22,6 +22,7 @@
         </span>
       </div>
       <el-checkbox-group
+        :class="{ expand: !filterable }"
         v-model="checkedData"
         v-if="districtListMock.length > 0"
         @change="handleCheckedChange"
@@ -222,6 +223,10 @@ export default {
   .el-checkbox-group {
     height: 240px;
     overflow: auto;
+    &.expand {
+      height: 290px;
+    }
+
     .el-transfer-panel__item {
       display: block;
     }
