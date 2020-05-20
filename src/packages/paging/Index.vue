@@ -147,16 +147,16 @@ export default {
     },
     selectedData: {
       handler() {
-        this.initData()
+        this.initData(true)
       },
       deep: true
     }
   },
   methods: {
     // 分页数据，初始化数据，过滤已选数据
-    initData() {
+    initData(selectedChange) {
       // this.checkedData 为空 且 从来没有将已选区置为空，则从 selectedData 获取
-      if (!this.checkedData.length && !this.manualEmpty) {
+      if ((!this.checkedData.length && !this.manualEmpty) || selectedChange) {
         this.checkedData = JSON.parse(JSON.stringify(this.selectedData))
       }
       this.selectListCheck = this.checkedData

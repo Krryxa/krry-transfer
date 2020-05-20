@@ -20,7 +20,7 @@
       :filterable="true"
       filter-placeholder="请输入内容~"
       :pageTexts="['pre', 'next']"
-      :sort="true"
+      :sort="false"
       :async="false"
       :getPageData="getPageData"
       @onChange="onChangeData2"
@@ -52,6 +52,12 @@ export default {
   },
   created() {
     this.productData()
+    setTimeout(() => {
+      this.selectedData2 = [{
+        id: 99,
+        label: '这是第99条数据'
+      }]
+    }, 4000)
   },
   methods: {
     productData() {
