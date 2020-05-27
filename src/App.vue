@@ -22,6 +22,7 @@
       :pageTexts="['pre', 'next']"
       :sort="false"
       :async="false"
+      :isHighlight="true"
       :getPageData="getPageData"
       @onChange="onChangeData2"
     ></kr-paging>

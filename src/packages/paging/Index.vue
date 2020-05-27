@@ -11,6 +11,7 @@
       :pageTexts="pageTexts"
       :async="async"
       :isLastPage="isLastPage"
+      :isHighlight="isHighlight"
       @check-district="noCheckSelect"
       @search-word="searchWord"
       @check-disable="checkDisable"
@@ -43,6 +44,7 @@
       :filterable="filterable"
       :filter-placeholder="filterPlaceholder"
       :pageTexts="pageTexts"
+      :isHighlight="isHighlight"
       @check-district="hasCheckSelect"
       @search-word="searchWord"
       @check-disable="checkDisable"
@@ -94,6 +96,10 @@ export default {
     getPageData: {
       type: Function,
       default: () => []
+    },
+    isHighlight: {
+      type: Boolean,
+      default: () => false
     }
   },
   components: {

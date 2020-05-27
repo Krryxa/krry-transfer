@@ -33,7 +33,7 @@
           :title="item.label"
           :label="item"
           :key="index"
-        >{{item.label}}</el-checkbox>
+        ><cmp :html="isHighlight ? filterHighlight(item.label) : item.label"></cmp></el-checkbox>
       </el-checkbox-group>
       <p class="no-data" v-else>无数据</p>
     </div>
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 export default {
   props: {
     title: {
@@ -73,6 +74,9 @@ export default {
       default: () => false // 已选区不做异步
     },
     isLastPage: {
+      type: Boolean
+    },
+    isHighlight: {
       type: Boolean
     }
   },
@@ -196,9 +200,31 @@ export default {
       this.isIndeterminate = false
       // 子传父
       this.$emit('check-district', this.checkedData)
+    },
+    filterHighlight(label) {
+      const filterWord = this.searchWord.trim()
+      label = label && label.trim()
+      if (filterWord && label) {
+        let reg = new RegExp(filterWord)
+        return label.replace(reg, `<span class="red">${filterWord}</span>`)
+      } else {
+        return label
+      }
     }
   },
-  components: {}
+  components: {
+    cmp: {
+      props: {
+        html: String
+      },
+      render(h) {
+        const com = Vue.extend({
+          template: `<span>${this.html}</span>`
+        })
+        return h(com, {})
+      }
+    }
+  }
 }
 </script>
 
@@ -262,5 +288,10 @@ export default {
       border-radius: 0;
     }
   }
+}
+</style>
+<style>
+.red {
+  color: #ff2b2b
 }
 </style>
