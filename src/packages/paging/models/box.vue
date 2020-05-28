@@ -33,7 +33,7 @@
           :title="item.label"
           :label="item"
           :key="index"
-        ><cmp :html="isHighlight ? filterHighlight(item.label) : item.label"></cmp></el-checkbox>
+        ><span v-html="isHighlight ? filterHighlight(item.label) : item.label"></span></el-checkbox>
       </el-checkbox-group>
       <p class="no-data" v-else>无数据</p>
     </div>
@@ -212,19 +212,7 @@ export default {
       }
     }
   },
-  components: {
-    cmp: {
-      props: {
-        html: String
-      },
-      render(h) {
-        const com = Vue.extend({
-          template: `<span>${this.html}</span>`
-        })
-        return h(com, {})
-      }
-    }
-  }
+  components: {}
 }
 </script>
 
