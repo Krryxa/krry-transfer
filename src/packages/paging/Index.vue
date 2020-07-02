@@ -234,21 +234,20 @@ export default {
     // 从已选中删除
     deleteData() {
       // 已选区数据过滤
-      this.checkedData = this.checkedData.filter(item1 => {
-        return this.hasCheckData.every(
-          item2 => String(item2.id) !== String(item1.id)
-        )
-      })
+      const hasCheckDataId = this.hasCheckData.map(ele => ele.id)
+      this.checkedData = this.checkedData.filter(
+        ele => !hasCheckDataId.includes(ele.id) && ele.label.includes(this.haSelectkeyword)
+      )
       this.manualEmpty = !this.checkedData.length
+
       // 待选区数据增加
-      this.notSelectDataList = this.originList.filter(item1 => {
-        return this.checkedData.every(
-          item2 => String(item2.id) !== String(item1.id)
-        )
-      })
+      const checkedDataId = this.checkedData.map(ele => ele.id)
+      this.notSelectDataList = this.originList.filter(
+        ele => !checkedDataId.includes(ele.id) && ele.label.includes(this.noSelectkeyword)
+      )
       // 搜索一次
-      this.searchWord(this.noSelectkeyword, 0)
-      this.searchWord(this.haSelectkeyword, 1)
+      // this.searchWord(this.noSelectkeyword, 0)
+      // this.searchWord(this.haSelectkeyword, 1)
     },
     // 提供获取已选数据的钩子
     getSelectedData() {
