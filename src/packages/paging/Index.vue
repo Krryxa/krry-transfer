@@ -125,6 +125,7 @@ export default {
       manualEmpty: false, // 是否手动将已选区数据置为空
 
       asyncDataList: [], // 异步请求的数据源
+      asyncFirst: true,
       isLastPage: false // 异步请求是否是最后一页
     }
   },
@@ -165,10 +166,24 @@ export default {
       if ((!this.checkedData.length && !this.manualEmpty) || selectedChange) {
         this.checkedData = JSON.parse(JSON.stringify(this.selectedData))
       }
-      this.selectListCheck = JSON.parse(JSON.stringify(this.checkedData))
-      const checkDataId = this.checkedData.map(ele => ele.id)
-      this.notSelectDataList = this.originList.filter(ele => !checkDataId.includes(ele.id))
-      this.dataListNoCheck = JSON.parse(JSON.stringify(this.notSelectDataList))
+      if (!this.async) {
+        this.selectListCheck = JSON.parse(JSON.stringify(this.checkedData))
+        const checkDataId = this.selectListCheck.map(ele => ele.id)
+        this.notSelectDataList = this.originList.filter(ele => !checkDataId.includes(ele.id))
+        this.dataListNoCheck = JSON.parse(JSON.stringify(this.notSelectDataList))
+      } else {
+        if (this.asyncFirst) {
+          this.selectListCheck = JSON.parse(JSON.stringify(this.checkedData))
+        }
+        const checkDataId = this.selectListCheck.map(ele => ele.id)
+        this.asyncFirst = false
+        this.notSelectDataList = this.originList.filter(
+          ele => !checkDataId.includes(ele.id) && ele.label.includes(this.noSelectkeyword)
+        )
+        this.dataListNoCheck = this.originList.filter(
+          ele => !checkDataId.includes(ele.id)
+        )
+      }
     },
     searchWord(keyword, titleId) {
       // 过滤掉数据，保留搜索的数据

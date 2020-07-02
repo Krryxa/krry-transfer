@@ -172,7 +172,7 @@ export default {
           }
         ]
         // paging
-        for (let i = 0; i < 150000; i++) {
+        for (let i = 0; i < 1500; i++) {
           this.dataList.push({
             id: i,
             label: `这是第${i}条数据`
