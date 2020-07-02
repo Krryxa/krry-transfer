@@ -120,6 +120,7 @@ export default {
     },
     dataShowList: {
       handler() {
+        console.log(1231231231231)
         this.async ? this.asyncInitData() : this.initData()
       },
       deep: true
@@ -128,10 +129,12 @@ export default {
   methods: {
     // 分页数据
     initData() {
+      let nowTime = new Date().getTime()
       this.len = this.dataShowList.length
       this.total = Math.ceil(this.len / this.pageSize)
       this.pageIndex = 0
       this.pageData()
+      console.log('计算分页：', new Date().getTime() - nowTime)
     },
     pageData() {
       this.checkedData = []

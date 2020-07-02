@@ -53,12 +53,12 @@ export default {
   },
   created() {
     this.productData()
-    setTimeout(() => {
-      this.selectedData2 = [{
-        id: 99,
-        label: '这是第99条数据'
-      }]
-    }, 4000)
+    // setTimeout(() => {
+    //   this.selectedData2 = [{
+    //     id: 99,
+    //     label: '这是第99条数据'
+    //   }]
+    // }, 4000)
   },
   methods: {
     productData() {
@@ -172,7 +172,7 @@ export default {
           }
         ]
         // paging
-        for (let i = 0; i < 2220; i++) {
+        for (let i = 0; i < 150000; i++) {
           this.dataList.push({
             id: i,
             label: `这是第${i}条数据`
