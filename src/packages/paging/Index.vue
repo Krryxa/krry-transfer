@@ -110,8 +110,8 @@ export default {
       notSelectDataList: [], // 未选中（已过滤出已选)的数据
       checkedData: [], // 已选中的数据
 
-      // dataListNoCheck: [], // 未选中的（或已搜索）传递到子组件的数据
-      // selectListCheck: [], // 已选中的（或已搜索）传递到子组件的数据
+      dataListNoCheck: [], // 未搜索的数据
+      selectListCheck: [], // 未搜索的数据
 
       noCheckData: [], // 未选中区域的已勾选的数据（待添加到已选区域)
       hasCheckData: [], // 已选中区域的已勾选的数据（从未选区域中待删除)
@@ -165,21 +165,21 @@ export default {
       if ((!this.checkedData.length && !this.manualEmpty) || selectedChange) {
         this.checkedData = JSON.parse(JSON.stringify(this.selectedData))
       }
-      this.checkedData = this.checkedData
+      this.selectListCheck = JSON.parse(JSON.stringify(this.checkedData))
       const checkDataId = this.checkedData.map(ele => ele.id)
       this.notSelectDataList = this.originList.filter(ele => !checkDataId.includes(ele.id))
-      // this.dataListNoCheck = this.notSelectDataList
+      this.dataListNoCheck = JSON.parse(JSON.stringify(this.notSelectDataList))
     },
     searchWord(keyword, titleId) {
       // 过滤掉数据，保留搜索的数据
       if (titleId === 0) {
         this.noSelectkeyword = keyword
-        this.notSelectDataList = this.notSelectDataList.filter(val =>
+        this.notSelectDataList = this.dataListNoCheck.filter(val =>
           val.label.includes(keyword)
         )
       } else {
         this.haSelectkeyword = keyword
-        this.checkedData = this.checkedData.filter(val =>
+        this.checkedData = this.selectListCheck.filter(val =>
           val.label.includes(keyword)
         )
       }
@@ -208,28 +208,33 @@ export default {
     // 关键：把未选择的数据当做已选择的过滤数组，把已选择的数据当做未选择的过滤数组，在全局data进行过滤，最后进行一次搜索
     // 添加至已选
     addData() {
-      let nowTime = new Date().getTime()
       const noCheckDataId = this.noCheckData.map(ele => ele.id)
       // 待选区数据过滤
       this.notSelectDataList = this.notSelectDataList.filter(
         ele => !noCheckDataId.includes(ele.id) && ele.label.includes(this.noSelectkeyword)
       )
+      this.dataListNoCheck = this.dataListNoCheck.filter(
+        ele => !noCheckDataId.includes(ele.id)
+      )
       // 已选区数据增加
       if (!this.async && this.sort) {
         // 排序，从固定不变的所有数据中过滤，顺序就不会乱。但若数据量大就会比较卡
         // 异步分页不支持排序
-        const notSelectDataIdList = this.notSelectDataList.map(ele => ele.id)
+        const dataListNoCheckId = this.dataListNoCheck.map(ele => ele.id)
         this.checkedData = this.originList.filter(
-          ele => !notSelectDataIdList.includes(ele.id) && ele.label.includes(this.haSelectkeyword)
+          ele => !dataListNoCheckId.includes(ele.id) && ele.label.includes(this.haSelectkeyword)
+        )
+        this.selectListCheck = this.originList.filter(
+          ele => !dataListNoCheckId.includes(ele.id)
         )
       } else {
         // 这种效率更高的方法，但不能排序
         this.checkedData.push(...this.noCheckData)
+        this.selectListCheck.push(...this.noCheckData)
         this.checkedData = this.checkedData.filter(ele =>
           ele.label.includes(this.haSelectkeyword)
         )
       }
-      console.log(new Date().getTime() - nowTime)
     },
     // 从已选中删除
     deleteData() {
@@ -238,12 +243,20 @@ export default {
       this.checkedData = this.checkedData.filter(
         ele => !hasCheckDataId.includes(ele.id) && ele.label.includes(this.haSelectkeyword)
       )
+      this.selectListCheck = this.selectListCheck.filter(
+        ele => !hasCheckDataId.includes(ele.id)
+      )
+
       this.manualEmpty = !this.checkedData.length
 
       // 待选区数据增加
-      const checkedDataId = this.checkedData.map(ele => ele.id)
+      const selectListCheckId = this.selectListCheck.map(ele => ele.id)
+      // const checkedDataId = this.checkedData.map(ele => ele.id)
       this.notSelectDataList = this.originList.filter(
-        ele => !checkedDataId.includes(ele.id) && ele.label.includes(this.noSelectkeyword)
+        ele => !selectListCheckId.includes(ele.id) && ele.label.includes(this.noSelectkeyword)
+      )
+      this.dataListNoCheck = this.originList.filter(
+        ele => !selectListCheckId.includes(ele.id)
       )
       // 搜索一次
       // this.searchWord(this.noSelectkeyword, 0)
