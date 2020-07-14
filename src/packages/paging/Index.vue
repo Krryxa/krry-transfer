@@ -16,6 +16,7 @@
       @search-word="searchWord"
       @check-disable="checkDisable"
       @get-data="getData"
+      @get-data-by-keyword="getDataByKeyword"
     ></krry-box>
     <div class="opera">
       <el-button
@@ -97,6 +98,9 @@ export default {
       type: Function,
       default: () => []
     },
+    getSearchData: {
+      type: Function
+    },
     isHighlight: {
       type: Boolean,
       default: () => false
@@ -139,6 +143,9 @@ export default {
     },
     originList() {
       return this.async ? this.asyncDataList : this.dataList
+    },
+    asyncSearchFlag() {
+      return this.getSearchData !== undefined
     }
   },
   watch: {
@@ -184,7 +191,7 @@ export default {
         this.notSelectDataList = this.originList.filter(
           ele =>
             !checkDataId.includes(ele.id) &&
-            ele.label.includes(this.noSelectkeyword)
+            (ele.label.includes(this.noSelectkeyword) || this.asyncSearchFlag)
         )
         this.dataListNoCheck = this.originList.filter(
           ele => !checkDataId.includes(ele.id)
@@ -193,11 +200,14 @@ export default {
     },
     searchWord(keyword, titleId) {
       // 过滤掉数据，保留搜索的数据
+      // 如果设置了异步搜索，就不用过滤关键词 this.asyncSearchFlag 为 true
       if (titleId === 0) {
         this.noSelectkeyword = keyword
-        this.notSelectDataList = this.dataListNoCheck.filter(val =>
-          val.label.includes(keyword)
-        )
+        if (!this.asyncSearchFlag) {
+          this.notSelectDataList = this.dataListNoCheck.filter(val =>
+            val.label.includes(keyword)
+          )
+        }
       } else {
         this.haSelectkeyword = keyword
         this.checkedData = this.selectListCheck.filter(val =>
@@ -231,10 +241,11 @@ export default {
     addData() {
       const noCheckDataId = this.noCheckData.map(ele => ele.id)
       // 待选区数据过滤
+      // 如果设置了异步搜索，就不用过滤关键词 this.asyncSearchFlag 为 true
       this.notSelectDataList = this.notSelectDataList.filter(
         ele =>
           !noCheckDataId.includes(ele.id) &&
-          ele.label.includes(this.noSelectkeyword)
+          (ele.label.includes(this.noSelectkeyword) || this.asyncSearchFlag)
       )
       this.dataListNoCheck = this.dataListNoCheck.filter(
         ele => !noCheckDataId.includes(ele.id)
@@ -279,10 +290,11 @@ export default {
       // 待选区数据增加
       const selectListCheckId = this.selectListCheck.map(ele => ele.id)
       // const checkedDataId = this.checkedData.map(ele => ele.id)
+      // 如果设置了异步搜索，就不用过滤关键词 this.asyncSearchFlag 为 true
       this.notSelectDataList = this.originList.filter(
         ele =>
           !selectListCheckId.includes(ele.id) &&
-          ele.label.includes(this.noSelectkeyword)
+          (ele.label.includes(this.noSelectkeyword) || this.asyncSearchFlag)
       )
       this.dataListNoCheck = this.originList.filter(
         ele => !selectListCheckId.includes(ele.id)
@@ -305,6 +317,25 @@ export default {
           break
         default:
           break
+      }
+    },
+    async getDataByKeyword(keyword) {
+      keyword = keyword.trim()
+      if (keyword) {
+        this.$nextTick(() => {
+          this.$refs.noSelect.asyncSearch = true
+        })
+        const resData = await this.getSearchData(keyword)
+        if (Array.isArray(resData) && resData.length) {
+          this.asyncDataList = resData
+          this.notSelectDataList = resData
+          this.initData()
+        } else {
+          this.notSelectDataList = []
+        }
+      } else {
+        this.$refs.noSelect.asyncSearch = false
+        this.getData(1)
       }
     },
     async getData(pageIndex) {

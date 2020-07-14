@@ -17,6 +17,7 @@
           type="text"
           v-model="searchWord"
           autocomplete="off"
+          @change="handleKeyword"
           :placeholder="filterPlaceholder"
           class="el-input__inner"
         />
@@ -43,8 +44,8 @@
       <p class="no-data" v-else>无数据</p>
     </div>
     <div class="vip-footer">
-      <el-button class="v-page" @click="prev" plain :disabled="disabledPre">{{ pageTexts[0] }}</el-button>
-      <el-button class="v-page" @click="next" plain :disabled="disabledNex">{{ pageTexts[1] }}</el-button>
+      <el-button class="v-page" @click="prev" plain :disabled="asyncSearch || disabledPre">{{ pageTexts[0] }}</el-button>
+      <el-button class="v-page" @click="next" plain :disabled="asyncSearch || disabledNex">{{ pageTexts[1] }}</el-button>
     </div>
   </div>
 </template>
@@ -97,6 +98,7 @@ export default {
       pageIndex: 0,
       disabledPre: true,
       disabledNex: false,
+      asyncSearch: false, // 异步搜索的标记
       asyncPageIndex: 1 // 异步分页的 pageIndex
     }
   },
@@ -131,6 +133,9 @@ export default {
     }
   },
   methods: {
+    handleKeyword() {
+      this.$emit('get-data-by-keyword', this.searchWord)
+    },
     // 分页数据
     initData() {
       this.len = this.dataShowList.length

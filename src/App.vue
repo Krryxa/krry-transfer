@@ -24,6 +24,7 @@
       :async="true"
       :isHighlight="true"
       :getPageData="getPageData"
+      :getSearchData="getSearchData"
       @onChange="onChangeData2"
     ></kr-paging>
     <el-button style="margin: 50px;" @click="getData(2)">获取数据</el-button>
@@ -212,6 +213,45 @@ export default {
     },
     clearQuery(position) {
       this.$refs.paging.clearQueryInp(position)
+    },
+    getSearchData(keyword) {
+      return new Promise((resolve, reject) => {
+        let resData = [
+          {
+            id: 0,
+            label: '这是第0条数据'
+          },
+          {
+            id: 1,
+            label: '这是第1条数据'
+          },
+          {
+            id: 2,
+            label: '这是第2条数据'
+          },
+          {
+            id: 3,
+            label: '这是第3条数据'
+          },
+          {
+            id: 4,
+            label: '这是第4条数据'
+          },
+          {
+            id: 5,
+            label: '这是第5条数据'
+          }
+        ]
+        setTimeout(() => {
+          for (let i = 6 ; i < 106; i++) {
+            resData.push({
+              id: keyword + i,
+              label: `异步搜索-${keyword}-数据 ${i}`
+            })
+          }
+          resolve(resData)
+        }, 200)
+      })
     },
     getPageData(pageIndex, pageSize) {
       // 异步获取分页数据
