@@ -15,7 +15,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export default {
-  version: '1.4.6',
+  version: '1.5.0',
   install,
   krryCascader,
   krryPaging
