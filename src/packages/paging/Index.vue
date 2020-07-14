@@ -308,6 +308,9 @@ export default {
       }
     },
     async getData(pageIndex) {
+      this.$nextTick(() => {
+        this.$refs.noSelect.asyncPageIndex = pageIndex
+      })
       const resData = await this.getPageData(pageIndex, this.pageSize)
       if (Array.isArray(resData) && resData.length) {
         this.asyncDataList = resData

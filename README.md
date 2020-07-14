@@ -265,6 +265,7 @@ selectedData: [
 |:-|:-|:-|
 |getSelectedData|-|获取已选数据集合的钩子|
 |clearQueryInp|String: 'left' / 'right'|清空某个面板的搜索框|
+|getData|Number: pageIndex|异步获取分页数据的钩子|
 
 <br>
 

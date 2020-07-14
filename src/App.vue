@@ -208,6 +208,7 @@ export default {
         const data = this.$refs.paging.getSelectedData()
         console.log('通过钩子获取：', data)
       }
+      // this.$refs.paging.getData(2)
     },
     clearQuery(position) {
       this.$refs.paging.clearQueryInp(position)
