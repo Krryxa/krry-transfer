@@ -21,7 +21,7 @@
       filter-placeholder="请输入内容~"
       :pageTexts="['pre', 'next']"
       :sort="false"
-      :async="false"
+      :async="true"
       :isHighlight="true"
       :getPageData="getPageData"
       @onChange="onChangeData2"
@@ -172,7 +172,7 @@ export default {
           }
         ]
         // paging
-        for (let i = 0; i < 1500; i++) {
+        for (let i = 0; i < 3500; i++) {
           this.dataList.push({
             id: i,
             label: `这是第${i}条数据`

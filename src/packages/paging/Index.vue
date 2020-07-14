@@ -169,8 +169,12 @@ export default {
       if (!this.async) {
         this.selectListCheck = JSON.parse(JSON.stringify(this.checkedData))
         const checkDataId = this.selectListCheck.map(ele => ele.id)
-        this.notSelectDataList = this.originList.filter(ele => !checkDataId.includes(ele.id))
-        this.dataListNoCheck = JSON.parse(JSON.stringify(this.notSelectDataList))
+        this.notSelectDataList = this.originList.filter(
+          ele => !checkDataId.includes(ele.id)
+        )
+        this.dataListNoCheck = JSON.parse(
+          JSON.stringify(this.notSelectDataList)
+        )
       } else {
         if (this.asyncFirst) {
           this.selectListCheck = JSON.parse(JSON.stringify(this.checkedData))
@@ -178,7 +182,9 @@ export default {
         const checkDataId = this.selectListCheck.map(ele => ele.id)
         this.asyncFirst = false
         this.notSelectDataList = this.originList.filter(
-          ele => !checkDataId.includes(ele.id) && ele.label.includes(this.noSelectkeyword)
+          ele =>
+            !checkDataId.includes(ele.id) &&
+            ele.label.includes(this.noSelectkeyword)
         )
         this.dataListNoCheck = this.originList.filter(
           ele => !checkDataId.includes(ele.id)
@@ -226,7 +232,9 @@ export default {
       const noCheckDataId = this.noCheckData.map(ele => ele.id)
       // 待选区数据过滤
       this.notSelectDataList = this.notSelectDataList.filter(
-        ele => !noCheckDataId.includes(ele.id) && ele.label.includes(this.noSelectkeyword)
+        ele =>
+          !noCheckDataId.includes(ele.id) &&
+          ele.label.includes(this.noSelectkeyword)
       )
       this.dataListNoCheck = this.dataListNoCheck.filter(
         ele => !noCheckDataId.includes(ele.id)
@@ -237,7 +245,9 @@ export default {
         // 异步分页不支持排序
         const dataListNoCheckId = this.dataListNoCheck.map(ele => ele.id)
         this.checkedData = this.originList.filter(
-          ele => !dataListNoCheckId.includes(ele.id) && ele.label.includes(this.haSelectkeyword)
+          ele =>
+            !dataListNoCheckId.includes(ele.id) &&
+            ele.label.includes(this.haSelectkeyword)
         )
         this.selectListCheck = this.originList.filter(
           ele => !dataListNoCheckId.includes(ele.id)
@@ -256,7 +266,9 @@ export default {
       // 已选区数据过滤
       const hasCheckDataId = this.hasCheckData.map(ele => ele.id)
       this.checkedData = this.checkedData.filter(
-        ele => !hasCheckDataId.includes(ele.id) && ele.label.includes(this.haSelectkeyword)
+        ele =>
+          !hasCheckDataId.includes(ele.id) &&
+          ele.label.includes(this.haSelectkeyword)
       )
       this.selectListCheck = this.selectListCheck.filter(
         ele => !hasCheckDataId.includes(ele.id)
@@ -268,7 +280,9 @@ export default {
       const selectListCheckId = this.selectListCheck.map(ele => ele.id)
       // const checkedDataId = this.checkedData.map(ele => ele.id)
       this.notSelectDataList = this.originList.filter(
-        ele => !selectListCheckId.includes(ele.id) && ele.label.includes(this.noSelectkeyword)
+        ele =>
+          !selectListCheckId.includes(ele.id) &&
+          ele.label.includes(this.noSelectkeyword)
       )
       this.dataListNoCheck = this.originList.filter(
         ele => !selectListCheckId.includes(ele.id)

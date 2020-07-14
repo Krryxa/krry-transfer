@@ -36,12 +36,7 @@ export default {
     },
     boxOperation: {
       type: Array,
-      default: () => [
-        '添加省份',
-        '添加城市',
-        '添加区县',
-        '删除地域'
-      ]
+      default: () => ['添加省份', '添加城市', '添加区县', '删除地域']
     },
     dataObj: {
       type: Object,

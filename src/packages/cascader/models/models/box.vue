@@ -9,7 +9,10 @@
       <span class="check-number">{{selectedDistrict.length}}/{{districtListMock.length}}</span>
     </div>
     <div class="el-transfer-panel__body">
-      <div v-if="filterable" class="el-transfer-panel__filter el-input el-input--small el-input--prefix">
+      <div
+        v-if="filterable"
+        class="el-transfer-panel__filter el-input el-input--small el-input--prefix"
+      >
         <input
           type="text"
           v-model="searchWord"
@@ -203,7 +206,7 @@ export default {
     &.expand {
       height: 290px;
     }
-    
+
     .el-transfer-panel__item {
       display: block;
     }

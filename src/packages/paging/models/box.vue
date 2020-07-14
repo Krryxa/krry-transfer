@@ -9,7 +9,10 @@
       <span class="check-number">{{checkedData.length}}/{{districtListMock.length}}</span>
     </div>
     <div class="el-transfer-panel__body">
-      <div v-if="filterable" class="el-transfer-panel__filter el-input el-input--small el-input--prefix">
+      <div
+        v-if="filterable"
+        class="el-transfer-panel__filter el-input el-input--small el-input--prefix"
+      >
         <input
           type="text"
           v-model="searchWord"
@@ -33,7 +36,9 @@
           :title="item.label"
           :label="item"
           :key="index"
-        ><span v-html="isHighlight ? filterHighlight(item.label) : item.label"></span></el-checkbox>
+        >
+          <span v-html="isHighlight ? filterHighlight(item.label) : item.label"></span>
+        </el-checkbox>
       </el-checkbox-group>
       <p class="no-data" v-else>无数据</p>
     </div>
@@ -280,6 +285,6 @@ export default {
 </style>
 <style>
 .red {
-  color: #ff2b2b
+  color: #ff2b2b;
 }
 </style>
