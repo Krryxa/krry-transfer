@@ -44,8 +44,18 @@
       <p class="no-data" v-else>无数据</p>
     </div>
     <div class="vip-footer">
-      <el-button class="v-page" @click="prev" plain :disabled="asyncSearch || disabledPre">{{ pageTexts[0] }}</el-button>
-      <el-button class="v-page" @click="next" plain :disabled="asyncSearch || disabledNex">{{ pageTexts[1] }}</el-button>
+      <el-button
+        class="v-page"
+        @click="prev"
+        plain
+        :disabled="asyncSearch || disabledPre"
+      >{{ pageTexts[0] }}</el-button>
+      <el-button
+        class="v-page"
+        @click="next"
+        plain
+        :disabled="asyncSearch || disabledNex"
+      >{{ pageTexts[1] }}</el-button>
     </div>
   </div>
 </template>
