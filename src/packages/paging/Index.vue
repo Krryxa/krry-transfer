@@ -309,7 +309,7 @@ export default {
     },
     async getData(pageIndex) {
       const resData = await this.getPageData(pageIndex, this.pageSize)
-      if (resData && resData.length) {
+      if (Array.isArray(resData) && resData.length) {
         this.asyncDataList = resData
         this.notSelectDataList = resData
         this.initData()
