@@ -130,7 +130,6 @@ export default {
       manualEmpty: false, // 是否手动将已选区数据置为空
 
       asyncDataList: [], // 异步请求的数据源
-      asyncFirst: true,
       isLastPage: false // 异步请求是否是最后一页
     }
   },
@@ -184,11 +183,10 @@ export default {
           JSON.stringify(this.notSelectDataList)
         )
       } else {
-        if (this.asyncFirst) {
+        if (selectedChange) {
           this.selectListCheck = JSON.parse(JSON.stringify(this.checkedData))
         }
         const checkDataId = this.selectListCheck.map(ele => ele.id)
-        this.asyncFirst = false
         this.notSelectDataList = this.originList.filter(
           ele =>
             !checkDataId.includes(ele.id) &&

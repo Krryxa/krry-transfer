@@ -193,7 +193,7 @@ export default {
             label: '这是第4条数据'
           }
         ]
-      }, 100)
+      }, 500)
     },
     onChangeData(val) {
       console.log('监听数据改变：', val)
