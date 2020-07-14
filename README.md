@@ -251,7 +251,7 @@ selectedData: [
 |sort|Boolean|false|已选区数据是否根据待选区的数据进行排序，设置为 true 后，性能有所下降；当 async 为 true 时，sort 属性无效|
 |async|Boolean|false|分页是否异步请求，当设置为 true，dataList 无需设置，请设置 getPageData 方法来获取分页数据|
 |getPageData|Function|() => []|异步请求分页数据的方法，参数：pageIndex, pageSize|
-|getSearchData|Function|-|异步搜索数据的方法，仅分页是异步请求时使用，参数：keyword|
+|getSearchData|Function|-|异步搜索数据的方法，仅分页是异步请求时使用，参数：keyword；搜索框失焦或回车执行|
 |isHighlight|Boolean|false|搜索后关键词是否高亮展示|
 
 ### Events
@@ -275,9 +275,10 @@ selectedData: [
 1. async 属性设置为 true
 2. dataList 无需设置
 3. 第一页和后续分页的数据都是通过设置 getPageData 属性方法获取
-4. 可设置异步搜索方法，待选区的搜索框将启用远程搜索，异步搜索的数据不分页
+4. 可设置异步搜索方法，待选区的搜索框将启用远程搜索，异步搜索的数据不分页（搜索框失焦或回车执行）
 
-*注意：async 若为 true，sort 属性无效；若没有设置异步搜索方法，将在当前页搜索（默认）*
+*注意：async 若为 true，sort 属性无效；*
+*若没有设置异步搜索方法，将在当前页搜索（默认）*
 
 ```html
 <!-- 可设置异步搜索方法：getSearchData -->
@@ -305,7 +306,7 @@ methods: {
       resolve(resData)
     })
   },
-  // 异步搜索的方法配置如下
+  // 异步搜索的方法配置如下 搜索框失焦或回车执行
   getSearchData(keyword) {
     return new Promise((resolve, reject) => {
       // ... 掉接口请求数据

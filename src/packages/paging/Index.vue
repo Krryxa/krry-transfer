@@ -146,7 +146,7 @@ export default {
       return this.async ? this.asyncDataList : this.dataList
     },
     asyncSearchFlag() {
-      return this.getSearchData !== undefined
+      return this.async && this.getSearchData !== undefined
     }
   },
   watch: {
@@ -300,9 +300,6 @@ export default {
       this.dataListNoCheck = this.originList.filter(
         ele => !selectListCheckId.includes(ele.id)
       )
-      // 搜索一次
-      // this.searchWord(this.noSelectkeyword, 0)
-      // this.searchWord(this.haSelectkeyword, 1)
     },
     // 提供获取已选数据的钩子
     getSelectedData() {
