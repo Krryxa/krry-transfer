@@ -12,6 +12,7 @@
       :async="async"
       :isLastPage="isLastPage"
       :isHighlight="isHighlight"
+      :asyncSearchFlag="asyncSearchFlag"
       @check-district="noCheckSelect"
       @search-word="searchWord"
       @check-disable="checkDisable"

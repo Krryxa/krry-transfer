@@ -94,6 +94,9 @@ export default {
     },
     isHighlight: {
       type: Boolean
+    },
+    asyncSearchFlag: {
+      type: Boolean
     }
   },
   data() {
@@ -144,7 +147,7 @@ export default {
   },
   methods: {
     handleKeyword() {
-      this.$emit('get-data-by-keyword', this.searchWord)
+      this.asyncSearchFlag && this.$emit('get-data-by-keyword', this.searchWord)
     },
     // 分页数据
     initData() {
