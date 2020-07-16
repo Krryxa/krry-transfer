@@ -298,7 +298,7 @@ selectedData: [
 
 ```js
 methods: {
-  // 异步获取分页数据
+  // 异步获取分页数据 待选区点击上一页/下一页执行
   getPageData(pageIndex, pageSize) {
     return new Promise((resolve, reject) => {
       // ... 掉接口请求数据
