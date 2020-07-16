@@ -298,13 +298,15 @@ selectedData: [
 
 ```js
 methods: {
+  // 异步获取分页数据
   getPageData(pageIndex, pageSize) {
-    // 异步获取分页数据
     return new Promise((resolve, reject) => {
       // ... 掉接口请求数据
       // resData 的数据结构如 dataList、selectedData 一样
       resolve(resData)
     })
+    // 如果使用 axios 或者其他封装了 promise 的请求，可直接 return 接口请求方法
+    // return getData({ pageIndex: pageIndex,... })
   },
   // 异步搜索的方法配置如下 搜索框失焦或回车执行
   getSearchData(keyword) {
@@ -313,6 +315,8 @@ methods: {
       // resData 的数据结构如 dataList、selectedData 一样
       resolve(resData)
     })
+    // 如果使用 axios 或者其他封装了 promise 的请求，可直接 return 接口请求方法
+    // return getData({ pageIndex: pageIndex,... })
   }
 }
 ```
