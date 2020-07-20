@@ -243,7 +243,7 @@ export default {
           }
         ]
         setTimeout(() => {
-          for (let i = 6 ; i < 106; i++) {
+          for (let i = 6; i < 106; i++) {
             resData.push({
               id: keyword + i,
               label: `异步搜索-${keyword}-数据 ${i}`
@@ -291,7 +291,7 @@ export default {
           if (pageIndex === 6) {
             pageSize = 56
           }
-          for (i ; i < pageSize; i++) {
+          for (i; i < pageSize; i++) {
             const id = pageIndex + '_' + i
             resData.push({
               id: id,
@@ -301,7 +301,7 @@ export default {
           resolve(resData)
         }, 500)
       })
-      return(resData)
+      return resData
     }
   }
 }
