@@ -293,30 +293,24 @@ selectedData: [
 类型为 Function 的绑定属性：getPageData、getSearchData 配置如下
 |name|params|return|
 |:-|:-|:-|
-|getPageData|pageIndex, pageSize|Promise|
-|getSearchData|keyword（搜索关键词）|Promise|
+|getPageData|pageIndex, pageSize|[{id: xxx, label: xxx}...]|
+|getSearchData|keyword（搜索关键词）|[{id: xxx, label: xxx}...]|
 
 ```js
 methods: {
   // 异步获取分页数据 待选区点击上一页/下一页执行
-  getPageData(pageIndex, pageSize) {
-    return new Promise((resolve, reject) => {
-      // ... 掉接口请求数据
-      // resData 的数据结构如 dataList、selectedData 一样
-      resolve(resData)
-    })
-    // 如果使用 axios 或者其他封装了 promise 的请求，可直接 return 接口请求方法
-    // return getData({ pageIndex: pageIndex,... })
+  async getPageData(pageIndex, pageSize) {
+    // 掉接口请求数据
+    const resData = await getData({pageIndex: pageIndex, pageSize: pageSize})
+    // 将 resData 的数据结构处理成如 dataList、selectedData 一样
+    return resData
   },
   // 异步搜索的方法配置如下 搜索框失焦或回车执行
-  getSearchData(keyword) {
-    return new Promise((resolve, reject) => {
-      // ... 掉接口请求数据
-      // resData 的数据结构如 dataList、selectedData 一样
-      resolve(resData)
-    })
-    // 如果使用 axios 或者其他封装了 promise 的请求，可直接 return 接口请求方法
-    // return getData({ pageIndex: pageIndex,... })
+  async getSearchData(keyword) {
+    // 掉接口请求数据
+    const resData = await getDataByKeyword({keyword: keyword})
+    // 将 resData 的数据结构处理成如 dataList、selectedData 一样
+    return resData
   }
 }
 ```
