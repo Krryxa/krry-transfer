@@ -307,6 +307,7 @@ export default {
       switch (position) {
         case 'left':
           this.$refs.noSelect.searchWord = ''
+          this.asyncSearchFlag && this.getDataByKeyword('')
           break
         case 'right':
           this.$refs.hasSelect.searchWord = ''
