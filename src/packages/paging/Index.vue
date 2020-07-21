@@ -337,7 +337,12 @@ export default {
     },
     async getData(pageIndex) {
       this.$nextTick(() => {
+        // 设置异步分页的 pageIndex
         this.$refs.noSelect.asyncPageIndex = pageIndex
+        // 清空左侧输入框
+        this.$refs.noSelect.searchWord = ''
+        // 分页按钮可用
+        this.$refs.noSelect.asyncSearch = false
       })
       const resData = await this.getPageData(pageIndex, this.pageSize)
       if (Array.isArray(resData) && resData.length) {
@@ -349,7 +354,6 @@ export default {
         this.notSelectDataList = []
         this.isLastPage = true
       }
-      // console.log('传递了', resData)
     }
   }
 }
