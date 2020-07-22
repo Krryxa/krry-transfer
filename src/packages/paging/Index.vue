@@ -7,7 +7,7 @@
       :dataShowList="notSelectDataList"
       :pageSize="pageSize"
       :filterable="filterable"
-      :filter-placeholder="filterPlaceholder"
+      :filter-placeholder="filterPlaceholder[0]"
       :pageTexts="pageTexts"
       :async="async"
       :isLastPage="isLastPage"
@@ -44,7 +44,7 @@
       :dataShowList="checkedData"
       :pageSize="pageSize"
       :filterable="filterable"
-      :filter-placeholder="filterPlaceholder"
+      :filter-placeholder="filterPlaceholder[1]"
       :pageTexts="pageTexts"
       :isHighlight="isHighlight"
       @check-district="hasCheckSelect"
@@ -80,8 +80,8 @@ export default {
       default: () => false
     },
     filterPlaceholder: {
-      type: String,
-      default: () => '请输入(在全局中搜索)'
+      type: Array,
+      default: () => ['请输入搜索内容', '请输入搜索内容']
     },
     pageTexts: {
       type: Array,

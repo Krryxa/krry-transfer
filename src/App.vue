@@ -18,7 +18,7 @@
       :pageSize="100"
       :boxTitle="boxTitle"
       :filterable="true"
-      filter-placeholder="请输入内容~"
+      :filter-placeholder="['请输入左侧内容', '请输入右侧内容']"
       :pageTexts="['pre', 'next']"
       :sort="false"
       :async="true"

@@ -247,7 +247,7 @@ selectedData: [
 |dataList|Array|[]|kr-paging 的数据源|
 |selectedData|Array|[]|已选数据集合|
 |filterable|Boolean|false|是否可搜索|
-|filter-placeholder|String|请输入(在全局中搜索)|搜索框占位符|
+|filter-placeholder|Array|['请输入搜索内容', '请输入搜索内容']|左右两边搜索框占位符|
 |pageTexts|Array|['上一页', '下一页']|分页按钮文案|
 |sort|Boolean|false|已选区数据是否根据待选区的数据进行排序，设置为 true 后，性能有所下降；当 async 为 true 时，sort 属性无效|
 |async|Boolean|false|分页是否异步请求，当设置为 true，dataList 无需设置，请设置 getPageData 方法来获取分页数据|
