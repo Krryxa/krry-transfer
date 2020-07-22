@@ -8,7 +8,20 @@
   "main": "dist/krry-transfer.js",
   "scripts": {
     "dev": "NODE_ENV=development webpack-dev-server --open --hot",
+    "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs --fix",
     "build": "NODE_ENV=production webpack --progress --hide-modules"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "node scripts/verify-commit-msg.js"
+    }
+  },
+  "lint-staged": {
+    "*.{js,vue}": [
+      "npm run lint",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -33,10 +46,25 @@
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-eslint": "^8.2.1",
     "babel-plugin-add-module-exports": "^1.0.2",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-stage-3": "^6.24.1",
+    "chalk": "^2.4.2",
+    "eslint": "^4.15.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.2.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "eslint-plugin-vue": "^4.0.0",
+    "husky": "^1.0.0",
+    "lint-staged": "^8.2.0",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "element-ui": "^2.12.0",

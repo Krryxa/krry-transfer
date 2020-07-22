@@ -223,9 +223,9 @@ export default {
     // 检查左右按钮可用性
     checkDisable(data, operateId) {
       if (operateId === 0) {
-        this.disableNex = data.length > 0 ? false : true
+        this.disableNex = !(data.length > 0)
       } else {
-        this.disablePre = data.length > 0 ? false : true
+        this.disablePre = !(data.length > 0)
       }
     },
     // 未选中区域的选泽

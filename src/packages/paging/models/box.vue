@@ -61,7 +61,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
 export default {
   props: {
     title: {
@@ -184,9 +183,9 @@ export default {
       this.checkedData = []
       // 分页按钮可用性
       this.disabledNex = this.isLastPage
-      this.disabledPre = this.asyncSearchFlag && this.asyncSearch ?
-        this.asyncSearchPageIndex <= 1 :
-          this.asyncPageIndex <= 1
+      this.disabledPre = this.asyncSearchFlag && this.asyncSearch
+        ? this.asyncSearchPageIndex <= 1
+        : this.asyncPageIndex <= 1
       // 赋值
       this.districtListMock = this.dataShowList
     },
@@ -195,9 +194,9 @@ export default {
       if (this.async) {
         // 异步获取数据
         this.disabledPre = true
-        this.asyncSearchFlag && this.asyncSearch ?
-          this.$emit('get-data-by-keyword', this.searchWord, this.asyncSearchPageIndex <= 1 ? 1 : --this.asyncSearchPageIndex) :
-            this.$emit('get-data', this.asyncPageIndex <= 1 ? 1 : --this.asyncPageIndex)
+        this.asyncSearchFlag && this.asyncSearch
+          ? this.$emit('get-data-by-keyword', this.searchWord, this.asyncSearchPageIndex <= 1 ? 1 : --this.asyncSearchPageIndex)
+          : this.$emit('get-data', this.asyncPageIndex <= 1 ? 1 : --this.asyncPageIndex)
       } else {
         this.pageIndex > 0 && --this.pageIndex
         this.pageData()
@@ -208,9 +207,9 @@ export default {
       if (this.async) {
         // 异步获取数据
         this.disabledNex = true
-        this.asyncSearchFlag && this.asyncSearch ?
-          this.$emit('get-data-by-keyword', this.searchWord, ++this.asyncSearchPageIndex) :
-            this.$emit('get-data', ++this.asyncPageIndex)
+        this.asyncSearchFlag && this.asyncSearch
+          ? this.$emit('get-data-by-keyword', this.searchWord, ++this.asyncSearchPageIndex)
+          : this.$emit('get-data', ++this.asyncPageIndex)
       } else {
         this.pageIndex <= this.total - 1 && ++this.pageIndex
         this.pageData()
