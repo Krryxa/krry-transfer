@@ -48,13 +48,13 @@
         class="v-page"
         @click="prev"
         plain
-        :disabled="asyncSearch || disabledPre"
+        :disabled="disabledPre"
       >{{ pageTexts[0] }}</el-button>
       <el-button
         class="v-page"
         @click="next"
         plain
-        :disabled="asyncSearch || disabledNex"
+        :disabled="disabledNex"
       >{{ pageTexts[1] }}</el-button>
     </div>
   </div>
@@ -95,7 +95,7 @@ export default {
     isHighlight: {
       type: Boolean
     },
-    asyncSearchFlag: {
+    asyncSearchFlag: { // 是否设置了异步搜索方法
       type: Boolean
     }
   },
@@ -111,8 +111,9 @@ export default {
       pageIndex: 0,
       disabledPre: true,
       disabledNex: false,
-      asyncSearch: false, // 异步搜索的标记
-      asyncPageIndex: 1 // 异步分页的 pageIndex
+      asyncSearch: false, // 要执行异步搜索的标记
+      asyncPageIndex: 1, // 异步分页的 pageIndex
+      asyncSearchPageIndex: 1 // 异步搜索的 pageIndex
     }
   },
   created() {
@@ -147,7 +148,8 @@ export default {
   },
   methods: {
     handleKeyword() {
-      this.asyncSearchFlag && this.$emit('get-data-by-keyword', this.searchWord)
+      this.asyncSearchPageIndex = 1
+      this.asyncSearchFlag && this.$emit('get-data-by-keyword', this.searchWord, this.asyncSearchPageIndex)
     },
     // 分页数据
     initData() {
@@ -182,7 +184,9 @@ export default {
       this.checkedData = []
       // 分页按钮可用性
       this.disabledNex = this.isLastPage
-      this.disabledPre = this.asyncPageIndex <= 1
+      this.disabledPre = this.asyncSearchFlag && this.asyncSearch ?
+        this.asyncSearchPageIndex <= 1 :
+          this.asyncPageIndex <= 1
       // 赋值
       this.districtListMock = this.dataShowList
     },
@@ -191,7 +195,9 @@ export default {
       if (this.async) {
         // 异步获取数据
         this.disabledPre = true
-        this.$emit('get-data', --this.asyncPageIndex)
+        this.asyncSearchFlag && this.asyncSearch ?
+          this.$emit('get-data-by-keyword', this.searchWord, this.asyncSearchPageIndex <= 1 ? 1 : --this.asyncSearchPageIndex) :
+            this.$emit('get-data', this.asyncPageIndex <= 1 ? 1 : --this.asyncPageIndex)
       } else {
         this.pageIndex > 0 && --this.pageIndex
         this.pageData()
@@ -202,7 +208,9 @@ export default {
       if (this.async) {
         // 异步获取数据
         this.disabledNex = true
-        this.$emit('get-data', ++this.asyncPageIndex)
+        this.asyncSearchFlag && this.asyncSearch ?
+          this.$emit('get-data-by-keyword', this.searchWord, ++this.asyncSearchPageIndex) :
+            this.$emit('get-data', ++this.asyncPageIndex)
       } else {
         this.pageIndex <= this.total - 1 && ++this.pageIndex
         this.pageData()

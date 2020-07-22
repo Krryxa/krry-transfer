@@ -145,6 +145,7 @@ export default {
       return this.async ? this.asyncDataList : this.dataList
     },
     asyncSearchFlag() {
+      // 是否设置了异步搜索方法
       return this.async && this.getSearchData !== undefined
     }
   },
@@ -316,19 +317,21 @@ export default {
           break
       }
     },
-    async getDataByKeyword(keyword) {
+    async getDataByKeyword(keyword, pageIndex) {
       keyword = keyword.trim()
       if (keyword) {
         this.$nextTick(() => {
           this.$refs.noSelect.asyncSearch = true
         })
-        const resData = await this.getSearchData(keyword)
+        const resData = await this.getSearchData(keyword, pageIndex, this.pageSize)
         if (Array.isArray(resData) && resData.length) {
           this.asyncDataList = resData
           this.notSelectDataList = resData
           this.initData()
+          this.isLastPage = resData.length < this.pageSize
         } else {
           this.notSelectDataList = []
+          this.isLastPage = true
         }
       } else {
         this.$refs.noSelect.asyncSearch = false
@@ -341,7 +344,7 @@ export default {
         this.$refs.noSelect.asyncPageIndex = pageIndex
         // 清空左侧输入框
         this.$refs.noSelect.searchWord = ''
-        // 分页按钮可用
+        // asyncSearch 设置为 true
         this.$refs.noSelect.asyncSearch = false
       })
       const resData = await this.getPageData(pageIndex, this.pageSize)
