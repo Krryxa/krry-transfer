@@ -139,7 +139,7 @@ export default {
   computed: {
     // 传递到后台保存的数据（已选中的数据的 id 数组）
     selectIdList() {
-      return this.checkedData.map(item => item.id)
+      return this.selectListCheck.map(item => item.id)
     },
     originList() {
       return this.async ? this.asyncDataList : this.dataList
