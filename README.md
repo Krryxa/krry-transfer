@@ -27,12 +27,12 @@
 
 **kr-paging 数据量庞大的分页穿梭框**
 1. 实现分页
-2. 搜索，在所有数据里搜索，这样就不用在每个分页都搜索一次，搜索后的结果也会自动分页
+2. 没有设置异步时，搜索将在所有数据里搜索，这样就不用在每个分页都搜索一次，搜索后的结果会自动分页
 3. 全选只在当前页里的全选
 4. 添加已选/删除已选 将自动计算分页条目
 5. 穿梭框左右两个框的联动
 6. 支持分页异步请求数据
-7. 支持搜索异步请求数据
+7. 支持分页搜索异步请求数据
 
 ## Install
 
@@ -252,7 +252,7 @@ selectedData: [
 |sort|Boolean|false|已选区数据是否根据待选区的数据进行排序，设置为 true 后，性能有所下降；当 async 为 true 时，sort 属性无效|
 |async|Boolean|false|分页是否异步请求，当设置为 true，dataList 无需设置，请设置 getPageData 方法来获取分页数据|
 |getPageData|Function|() => []|异步请求分页数据的方法，参数：pageIndex, pageSize|
-|getSearchData|Function|-|异步搜索数据的方法，仅分页是异步请求时使用，参数：keyword；搜索框失焦或回车执行|
+|getSearchData|Function|-|异步搜索数据的方法，仅分页是异步请求时使用，参数：keyword, pageIndex, pageSize；搜索框失焦或回车执行|
 |isHighlight|Boolean|false|搜索后关键词是否高亮展示|
 
 ### Events
@@ -271,19 +271,18 @@ selectedData: [
 
 <br>
 
-**当设置分页异步请求接口数据时，设置方法如下**
+**当设置分页异步请求接口数据时，设置方法如下：**
 
 1. async 属性设置为 true
 2. dataList 无需设置
 3. 第一页和后续分页的数据都是通过设置 getPageData 属性方法获取
-4. 可设置异步搜索的方法 getSearchData，待选区的搜索框将启用远程搜索（搜索框失焦或回车执行），异步搜索的数据不分页
+4. 可设置异步搜索的方法 getSearchData，待选区的搜索框将启用远程搜索（搜索框失焦或回车执行）
 
 **注意：**
-当分页异步请求时，即 :async="true"
 1. 此时 sort 属性无效；
 2. 若没有设置异步搜索方法 getSearchData，待选区的搜索将在当前页搜索
 
-> 若分页不是异步请求，即不设置 async 或 :async="false"，将在所有数据中搜索，搜索后的结果也会自动分页
+> 若分页不是异步请求，即不设置 async 或 :async="false"，待选区的搜索将在所有数据中搜索，搜索后的结果会自动分页
 
 ```html
 <!-- 可设置异步搜索方法：getSearchData -->
@@ -299,21 +298,28 @@ selectedData: [
 |name|params|return|
 |:-|:-|:-|
 |getPageData|pageIndex, pageSize|[{id: xxx, label: xxx}...]|
-|getSearchData|keyword（搜索关键词）|[{id: xxx, label: xxx}...]|
+|getSearchData|keyword, pageIndex, pageSize|[{id: xxx, label: xxx}...]|
 
 ```js
 methods: {
   // 异步获取分页数据 待选区点击上一页/下一页执行
   async getPageData(pageIndex, pageSize) {
     // 掉接口请求数据
-    const resData = await getData({pageIndex: pageIndex, pageSize: pageSize})
+    const resData = await getData({
+      pageIndex: pageIndex,
+      pageSize: pageSize
+    })
     // 将 resData 的数据结构处理成如 dataList、selectedData 一样
     return resData
   },
   // 异步搜索的方法配置如下 搜索框失焦或回车执行
-  async getSearchData(keyword) {
+  async getSearchData(keyword, pageIndex, pageSize) {
     // 掉接口请求数据
-    const resData = await getDataByKeyword({keyword: keyword})
+    const resData = await getDataByKeyword({
+      keyword: keyword,
+      pageIndex: pageIndex,
+      pageSize: pageSize
+    })
     // 将 resData 的数据结构处理成如 dataList、selectedData 一样
     return resData
   }
