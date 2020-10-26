@@ -49,13 +49,6 @@
 import krryBox from './models/box'
 export default {
   props: {
-    // 分仓对应的省id
-    wareHousePro: {
-      type: Array
-    },
-    wareHouseFlag: {
-      type: Boolean
-    },
     boxTitle: {
       type: Array
     },
@@ -114,13 +107,6 @@ export default {
       },
       deep: true
     },
-    // 监听点击分仓，所自动勾选的省
-    wareHousePro(newVal, oldVal) {
-      // 当区域数据和分仓数据加载后才能解锁
-      if (this.flag && this.wareHouseFlag) {
-        this.watchWarehouse(newVal, oldVal)
-      }
-    },
     checkedDistrict(newVal) {
       this.onChangeSelected(newVal)
     }
@@ -133,57 +119,11 @@ export default {
     async getDistrict() {
       // 从后台传回经过处理的数据
       this.flag = true // 数据加载完成，解锁
-      // 当分仓数据加载后才能解锁
-      if (this.wareHouseFlag) {
-        this.watchWarehouse(this.wareHousePro, []) // 执行一次分仓与区域选择的联动
-      }
       // 执行已选数据的过滤
       this.checkedDistrict = JSON.parse(JSON.stringify(this.selectedData))
       this.initFilter(this.checkedDistrict)
       // 获取省级数据
       this.getProvince()
-    },
-    // 分仓对应的省id的监听器方法
-    watchWarehouse(newVal, oldVal) {
-      // 列举出已选的id
-      let selectedId = this.checkedDistrict.map(val => val.id)
-      let selectedIdAry = []
-      let selectedArray = []
-
-      // 循环新值，得出要勾选的省级id
-      for (let val of newVal) {
-        // 只找出没有包含的省，才添加进selectDistrict
-        if (!selectedId.includes(val)) {
-          // 查出对应省的名称
-          let title = this.dataObj.province[val]
-          // 省级id添加进selectedIdAry
-          selectedIdAry.push(val)
-          // 省级对象添加进selectedArray
-          selectedArray.push({
-            id: val,
-            label: title
-          })
-        }
-      }
-      // 从省级添加到已选区域的方法，参数：第一个：省级对象数组，第二个：所选择的省级id数组
-      this.selectedProvince(selectedArray, selectedIdAry)
-
-      let deleteSelected = []
-      // 循环旧值，得出取消勾选的省级id
-      for (let val of oldVal) {
-        // 进行比较，如果新值中不包含此id，就是要准备取消，并且第二个条件是必须是已经勾选，才能取消
-        if (!newVal.includes(val) && selectedId.includes(val)) {
-          // 查出对应省的名称
-          let title = this.dataObj.province[val]
-          // 省级对象添加进selectedArray
-          deleteSelected.push({
-            id: val,
-            label: title
-          })
-        }
-      }
-      // 执行删除区域对象的方法，参数：要删除的区域对象数组
-      this.deleteCheck(deleteSelected)
     },
     // 获取省级数据
     getProvince() {
