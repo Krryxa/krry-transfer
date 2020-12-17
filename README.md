@@ -328,7 +328,11 @@ methods: {
 
 
 ## Demo of applying this component
-使用 krry-transfer 组件的示例 demo：[my-transfer](https://github.com/Krryxa/my-transfer)
+在线 demo：
+[省市级联动多选穿梭框](http://ele.ainyi.com/my-transfer)、
+[分页穿梭框](http://ele.ainyi.com/my-transfer/#/mutiTransfer)
+
+使用 krry-transfer 组件的示例 demo git：[my-transfer](https://github.com/Krryxa/my-transfer)
 
 ## About
 npm：[krry-transfer](https://www.npmjs.com/package/krry-transfer)
