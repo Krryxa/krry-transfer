@@ -24,6 +24,9 @@
         <span class="el-input__prefix" style="left: 0px;">
           <i class="el-input__icon el-icon-search"></i>
         </span>
+        <span v-if="searchWord && showClearBtn" class="clear-input">
+          <i class="el-icon-circle-close"></i>
+        </span>
       </div>
       <el-checkbox-group
         :class="{ expand: !filterable }"
@@ -95,6 +98,9 @@ export default {
       type: Boolean
     },
     asyncSearchFlag: { // 是否设置了异步搜索方法
+      type: Boolean
+    },
+    showClearBtn: {
       type: Boolean
     }
   },
@@ -262,6 +268,30 @@ export default {
     .el-transfer-panel__filter {
       margin: 6px 14px 12px;
       line-height: 0;
+
+      .clear-input {
+        position: absolute;
+        height: 100%;
+        right: 10px;
+        top: 0px;
+        text-align: center;
+        color: #c0c4cc;
+        transition: all .3s;
+        line-height: 32px;
+        visibility: hidden;
+        opacity: 0;
+
+        &:hover {
+          color: #909399;
+        }
+      }
+
+      &:hover {
+        .clear-input {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
     }
   }
   .el-checkbox-group {

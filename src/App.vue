@@ -25,6 +25,7 @@
       :isHighlight="true"
       :getPageData="getPageData"
       :getSearchData="getSearchData"
+      :showClearBtn="true"
       @onChange="onChangeData2"
     ></kr-paging>
     <el-button style="margin: 50px;" @click="getData(2)">获取数据</el-button>

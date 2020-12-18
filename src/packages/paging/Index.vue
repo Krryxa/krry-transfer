@@ -13,6 +13,7 @@
       :isLastPage="isLastPage"
       :isHighlight="isHighlight"
       :asyncSearchFlag="asyncSearchFlag"
+      :showClearBtn="showClearBtn"
       @check-district="noCheckSelect"
       @search-word="searchWord"
       @check-disable="checkDisable"
@@ -47,6 +48,7 @@
       :filter-placeholder="filterPlaceholder[1]"
       :pageTexts="pageTexts"
       :isHighlight="isHighlight"
+      :showClearBtn="showClearBtn"
       @check-district="hasCheckSelect"
       @search-word="searchWord"
       @check-disable="checkDisable"
@@ -103,6 +105,10 @@ export default {
       type: Function
     },
     isHighlight: {
+      type: Boolean,
+      default: () => false
+    },
+    showClearBtn: {
       type: Boolean,
       default: () => false
     }
