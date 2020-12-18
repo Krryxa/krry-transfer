@@ -254,6 +254,7 @@ selectedData: [
 |getPageData|Function|() => []|异步请求分页数据的方法，参数：pageIndex, pageSize|
 |getSearchData|Function|-|异步搜索数据的方法，仅分页是异步请求时使用，参数：keyword, pageIndex, pageSize；搜索框失焦或回车执行|
 |isHighlight|Boolean|false|搜索后关键词是否高亮展示|
+|showClearBtn|Boolean|false|是否在搜索框末尾展示清空按钮|
 
 ### Events
 
@@ -327,7 +328,7 @@ methods: {
 ```
 
 
-## Demo of applying this component
+## Demo
 在线 demo：
 [省市级联动多选穿梭框](http://ele.ainyi.com/my-transfer)、
 [分页穿梭框](http://ele.ainyi.com/my-transfer/#/mutiTransfer)
