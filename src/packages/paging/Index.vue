@@ -19,6 +19,7 @@
       @check-disable="checkDisable"
       @get-data="getData"
       @get-data-by-keyword="getDataByKeyword"
+      @clear-input="clearQueryInp('left')"
     ></krry-box>
     <div class="opera">
       <el-button
@@ -52,6 +53,7 @@
       @check-district="hasCheckSelect"
       @search-word="searchWord"
       @check-disable="checkDisable"
+      @clear-input="clearQueryInp('right')"
     ></krry-box>
   </div>
 </template>

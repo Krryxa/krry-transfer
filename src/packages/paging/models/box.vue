@@ -20,12 +20,13 @@
           @change="handleKeyword"
           :placeholder="filterPlaceholder"
           class="el-input__inner"
+          :class="{ showClear: showClearBtn }"
         />
         <span class="el-input__prefix" style="left: 0px;">
           <i class="el-input__icon el-icon-search"></i>
         </span>
         <span v-if="searchWord && showClearBtn" class="clear-input">
-          <i class="el-icon-circle-close"></i>
+          <i class="el-icon-circle-close" @click="clearInp"></i>
         </span>
       </div>
       <el-checkbox-group
@@ -237,6 +238,9 @@ export default {
       // 子传父
       this.$emit('check-district', this.checkedData)
     },
+    clearInp() {
+      this.$emit('clear-input')
+    },
     filterHighlight(label) {
       const filterWord = this.searchWord.trim()
       label = label && label.trim()
@@ -269,6 +273,10 @@ export default {
       margin: 6px 14px 12px;
       line-height: 0;
 
+      .showClear {
+        padding-right: 30px;
+      }
+
       .clear-input {
         position: absolute;
         height: 100%;
@@ -277,7 +285,7 @@ export default {
         text-align: center;
         color: #c0c4cc;
         transition: all .3s;
-        line-height: 32px;
+        line-height: 33px;
         visibility: hidden;
         opacity: 0;
 
