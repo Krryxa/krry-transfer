@@ -18,7 +18,7 @@
       >
         <input
           type="text"
-          v-model="searchWord"
+          v-model.trim="searchWord"
           autocomplete="off"
           @change="handleKeyword"
           :placeholder="filterPlaceholder"
