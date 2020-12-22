@@ -91,7 +91,7 @@ export default {
   computed: {
     // 映射出选中区域的数据Id
     selectDistrictId() {
-      return this.checkedDistrict.map(val => val.id)
+      return this.checkedDistrict.map((val) => val.id)
     }
   },
   watch: {
@@ -209,13 +209,15 @@ export default {
           // 拆分的数组长度大于1，说明有市级以下的区域，合并成一个省级区域
           if (selectId.length > 1 && selectId[0] === val) {
             // 在已选择的区域中删除市级数据，合并成一个省级
-            this.checkedDistrict = this.checkedDistrict.filter(vl => vl !== vq)
+            this.checkedDistrict = this.checkedDistrict.filter(
+              (vl) => vl !== vq
+            )
             // 当前省级已被合并，从过滤数组中删除该市级和县级数据
             this.filterCity = this.filterCity.filter(
-              vf => vf.toString() !== selectId[1]
+              (vf) => vf.toString() !== selectId[1]
             )
             this.filterCounty = this.filterCounty.filter(
-              vs => vs.toString() !== selectId[2]
+              (vs) => vs.toString() !== selectId[2]
             )
           }
         }
@@ -237,10 +239,12 @@ export default {
           // 拆分的数组长度为3，说明有县级区域，并且该市级区域与当前加入市级区域的id相同，合并成一个市级区域
           if (selectId.length === 3 && selectId[1] === val.toString()) {
             // 在已选择的区域中删除县级数据，合并成一个市级
-            this.checkedDistrict = this.checkedDistrict.filter(vl => vl !== vq)
+            this.checkedDistrict = this.checkedDistrict.filter(
+              (vl) => vl !== vq
+            )
             // 当前市级已被合并，从过滤数组中删除该县级数据
             this.filterCounty = this.filterCounty.filter(
-              vs => vs.toString() !== selectId[2]
+              (vs) => vs.toString() !== selectId[2]
             )
           }
         }
@@ -261,7 +265,7 @@ export default {
     handleFilterProvince() {
       let newPro = Array.from(this.provinceList)
       for (let val of this.filterProvince) {
-        newPro = newPro.filter(vq => String(vq.id) !== String(val))
+        newPro = newPro.filter((vq) => String(vq.id) !== String(val))
       }
       this.provinceList = Array.from(newPro)
     },
@@ -269,7 +273,7 @@ export default {
     handleFilterCity() {
       let newCity = Array.from(this.cityList)
       for (let val of this.filterCity) {
-        newCity = newCity.filter(vq => String(vq.id) !== String(val))
+        newCity = newCity.filter((vq) => String(vq.id) !== String(val))
       }
       this.cityList = Array.from(newCity)
     },
@@ -277,7 +281,7 @@ export default {
     handleFilterCounty() {
       let newCounty = Array.from(this.countyList)
       for (let val of this.filterCounty) {
-        newCounty = newCounty.filter(vq => String(vq.id) !== String(val))
+        newCounty = newCounty.filter((vq) => String(vq.id) !== String(val))
       }
       this.countyList = Array.from(newCounty)
     },
@@ -290,7 +294,7 @@ export default {
           case 1: {
             // 长度只有1，只有省级数据，删除对应省级的filter中的数据
             this.filterProvince = this.filterProvince.filter(
-              vs => vs !== selectId[0]
+              (vs) => vs !== selectId[0]
             )
             // 重新获取县级数据
             this.getProvince()
@@ -299,7 +303,7 @@ export default {
           case 2: {
             // 长度为2，到达市级数据，删除对应市级的filter中的数据
             this.filterCity = this.filterCity.filter(
-              vs => vs.toString() !== selectId[1]
+              (vs) => vs.toString() !== selectId[1]
             )
             // 重新获取市级数据
             if (this.$refs.prov.selectedDistrict.length) {
@@ -311,7 +315,7 @@ export default {
           case 3: {
             // 长度为3，到达县级数据，删除对应县级的filter中的数据
             this.filterCounty = this.filterCounty.filter(
-              vs => vs.toString() !== selectId[2]
+              (vs) => vs.toString() !== selectId[2]
             )
             if (this.$refs.city.selectedDistrict.length) {
               // 市级已勾选才显示区级
@@ -326,7 +330,7 @@ export default {
         }
         // 刷新已选区域
         this.checkedDistrict = this.checkedDistrict.filter(
-          vd => vd.id !== val.id
+          (vd) => vd.id !== val.id
         )
       }
     },

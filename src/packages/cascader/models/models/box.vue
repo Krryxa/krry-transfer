@@ -5,8 +5,11 @@
         :indeterminate="isIndeterminate"
         v-model="checkAll"
         @change="handleCheckAllChange"
-      >{{title}}</el-checkbox>
-      <span class="check-number">{{selectedDistrict.length}}/{{districtListMock.length}}</span>
+        >{{ title }}</el-checkbox
+      >
+      <span class="check-number"
+        >{{ selectedDistrict.length }}/{{ districtListMock.length }}</span
+      >
     </div>
     <div class="el-transfer-panel__body">
       <div
@@ -20,7 +23,7 @@
           :placeholder="filterPlaceholder"
           class="el-input__inner"
         />
-        <span class="el-input__prefix" style="left: 0px;">
+        <span class="el-input__prefix" style="left: 0px">
           <i class="el-input__icon el-icon-search"></i>
         </span>
       </div>
@@ -36,7 +39,8 @@
           :title="city.label"
           :label="city"
           :key="index"
-        >{{city.label}}</el-checkbox>
+          >{{ city.label }}</el-checkbox
+        >
       </el-checkbox-group>
       <p class="no-data" v-else>无数据</p>
     </div>
@@ -48,7 +52,7 @@
         round
         @click="checkedSelected"
       >
-        <span>{{operation}}</span>
+        <span>{{ operation }}</span>
       </el-button>
     </div>
   </div>
@@ -97,7 +101,7 @@ export default {
       // 重新获取数据
       this.districtListMock = this.districtList
       // 过滤掉数据，保留搜索的数据
-      this.districtListMock = this.districtListMock.filter(val =>
+      this.districtListMock = this.districtListMock.filter((val) =>
         val.label.includes(newWord)
       )
     },
@@ -139,7 +143,7 @@ export default {
     },
     // 全选
     handleCheckAllChange(val) {
-      this.selectedDistrict = val ? this.districtListMock.map(val => val) : []
+      this.selectedDistrict = val ? this.districtListMock.map((val) => val) : []
       this.isIndeterminate = false
     },
     // 添加至已选 或 删除已选区域

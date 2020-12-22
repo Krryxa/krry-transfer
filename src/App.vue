@@ -10,7 +10,7 @@
       filter-placeholder="请输入内容哦~"
       @onChange="onChangeData"
     ></kr-cascader>
-    <el-button style="margin: 50px;" @click="getData(1)">获取数据</el-button>
+    <el-button style="margin: 50px" @click="getData(1)">获取数据</el-button>
     <kr-paging
       ref="paging"
       :dataList="dataList"
@@ -28,9 +28,13 @@
       :showClearBtn="true"
       @onChange="onChangeData2"
     ></kr-paging>
-    <el-button style="margin: 50px;" @click="getData(2)">获取数据</el-button>
-    <el-button style="margin: 50px;" @click="clearQuery('left')">清空左边搜索框</el-button>
-    <el-button style="margin: 50px;" @click="clearQuery('right')">清空右边搜索框</el-button>
+    <el-button style="margin: 50px" @click="getData(2)">获取数据</el-button>
+    <el-button style="margin: 50px" @click="clearQuery('left')"
+      >清空左边搜索框</el-button
+    >
+    <el-button style="margin: 50px" @click="clearQuery('right')"
+      >清空右边搜索框</el-button
+    >
   </div>
 </template>
 
@@ -69,21 +73,21 @@ export default {
         // cascader
         this.dataObj = {
           province: {
-            '101101': '北京市',
-            '101102': '天津市',
-            '101103': '广东省',
-            '101104': '山西省',
-            '101105': '河北省',
-            '101106': '广西壮族自治区',
-            '101107': '甘肃省',
-            '101108': '湖北省',
-            '101109': '湖南省',
-            '101110': '福建省',
-            '101111': '内蒙古自治区',
-            '101112': '青海省'
+            101101: '北京市',
+            101102: '天津市',
+            101103: '广东省',
+            101104: '山西省',
+            101105: '河北省',
+            101106: '广西壮族自治区',
+            101107: '甘肃省',
+            101108: '湖北省',
+            101109: '湖南省',
+            101110: '福建省',
+            101111: '内蒙古自治区',
+            101112: '青海省'
           },
           city: {
-            '101101': [
+            101101: [
               {
                 id: 101101101112,
                 label: '通州区'
@@ -93,7 +97,7 @@ export default {
                 label: '房山区'
               }
             ],
-            '101102': [
+            101102: [
               {
                 id: 101102101111,
                 label: '西青区'
@@ -103,7 +107,7 @@ export default {
                 label: '津南区'
               }
             ],
-            '101103': [
+            101103: [
               {
                 id: 101102101351,
                 label: '河源市'
@@ -119,7 +123,7 @@ export default {
             ]
           },
           county: {
-            '101164181112': [
+            101164181112: [
               {
                 id: 106105142126,
                 label: '宝安区'
@@ -137,7 +141,7 @@ export default {
                 label: '福田区'
               }
             ],
-            '101102101351': [
+            101102101351: [
               {
                 id: 106105143124,
                 label: '龙川县'
@@ -147,7 +151,7 @@ export default {
                 label: '紫金县'
               }
             ],
-            '101164001112': [
+            101164001112: [
               {
                 id: 106465133124,
                 label: '惠阳区'
@@ -295,7 +299,8 @@ export default {
               {
                 id: 5,
                 label: '这是第5条数据'
-              })
+              }
+            )
           }
           if (pageIndex === 6) {
             pageSize = 56

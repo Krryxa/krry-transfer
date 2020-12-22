@@ -5,8 +5,11 @@
         :indeterminate="isIndeterminate"
         v-model="checkAll"
         @change="handleCheckAllChange"
-      >{{title}}</el-checkbox>
-      <span class="check-number">{{checkedData.length}}/{{districtListMock.length}}</span>
+        >{{ title }}</el-checkbox
+      >
+      <span class="check-number"
+        >{{ checkedData.length }}/{{ districtListMock.length }}</span
+      >
     </div>
     <div class="el-transfer-panel__body">
       <div
@@ -22,7 +25,7 @@
           class="el-input__inner"
           :class="{ showClear: showClearBtn }"
         />
-        <span class="el-input__prefix" style="left: 0px;">
+        <span class="el-input__prefix" style="left: 0px">
           <i class="el-input__icon el-icon-search"></i>
         </span>
         <span v-if="searchWord && showClearBtn" class="clear-input">
@@ -42,24 +45,20 @@
           :label="item"
           :key="index"
         >
-          <span v-html="isHighlight ? filterHighlight(item.label) : item.label"></span>
+          <span
+            v-html="isHighlight ? filterHighlight(item.label) : item.label"
+          ></span>
         </el-checkbox>
       </el-checkbox-group>
       <p class="no-data" v-else>无数据</p>
     </div>
     <div class="vip-footer">
-      <el-button
-        class="v-page"
-        @click="prev"
-        plain
-        :disabled="disabledPre"
-      >{{ pageTexts[0] }}</el-button>
-      <el-button
-        class="v-page"
-        @click="next"
-        plain
-        :disabled="disabledNex"
-      >{{ pageTexts[1] }}</el-button>
+      <el-button class="v-page" @click="prev" plain :disabled="disabledPre">{{
+        pageTexts[0]
+      }}</el-button>
+      <el-button class="v-page" @click="next" plain :disabled="disabledNex">{{
+        pageTexts[1]
+      }}</el-button>
     </div>
   </div>
 </template>
@@ -98,7 +97,8 @@ export default {
     isHighlight: {
       type: Boolean
     },
-    asyncSearchFlag: { // 是否设置了异步搜索方法
+    asyncSearchFlag: {
+      // 是否设置了异步搜索方法
       type: Boolean
     },
     showClearBtn: {
@@ -155,7 +155,12 @@ export default {
   methods: {
     handleKeyword() {
       this.asyncSearchPageIndex = 1
-      this.asyncSearchFlag && this.$emit('get-data-by-keyword', this.searchWord, this.asyncSearchPageIndex)
+      this.asyncSearchFlag &&
+        this.$emit(
+          'get-data-by-keyword',
+          this.searchWord,
+          this.asyncSearchPageIndex
+        )
     },
     // 分页数据
     initData() {
@@ -190,9 +195,10 @@ export default {
       this.checkedData = []
       // 分页按钮可用性
       this.disabledNex = this.isLastPage
-      this.disabledPre = this.asyncSearchFlag && this.asyncSearch
-        ? this.asyncSearchPageIndex <= 1
-        : this.asyncPageIndex <= 1
+      this.disabledPre =
+        this.asyncSearchFlag && this.asyncSearch
+          ? this.asyncSearchPageIndex <= 1
+          : this.asyncPageIndex <= 1
       // 赋值
       this.districtListMock = this.dataShowList
     },
@@ -202,8 +208,15 @@ export default {
         // 异步获取数据
         this.disabledPre = true
         this.asyncSearchFlag && this.asyncSearch
-          ? this.$emit('get-data-by-keyword', this.searchWord, this.asyncSearchPageIndex <= 1 ? 1 : --this.asyncSearchPageIndex)
-          : this.$emit('get-data', this.asyncPageIndex <= 1 ? 1 : --this.asyncPageIndex)
+          ? this.$emit(
+            'get-data-by-keyword',
+            this.searchWord,
+            this.asyncSearchPageIndex <= 1 ? 1 : --this.asyncSearchPageIndex
+          )
+          : this.$emit(
+            'get-data',
+            this.asyncPageIndex <= 1 ? 1 : --this.asyncPageIndex
+          )
       } else {
         this.pageIndex > 0 && --this.pageIndex
         this.pageData()
@@ -215,7 +228,11 @@ export default {
         // 异步获取数据
         this.disabledNex = true
         this.asyncSearchFlag && this.asyncSearch
-          ? this.$emit('get-data-by-keyword', this.searchWord, ++this.asyncSearchPageIndex)
+          ? this.$emit(
+            'get-data-by-keyword',
+            this.searchWord,
+            ++this.asyncSearchPageIndex
+          )
           : this.$emit('get-data', ++this.asyncPageIndex)
       } else {
         this.pageIndex <= this.total - 1 && ++this.pageIndex
@@ -233,7 +250,7 @@ export default {
     },
     // 全选
     handleCheckAllChange(val) {
-      this.checkedData = val ? this.districtListMock.map(val => val) : []
+      this.checkedData = val ? this.districtListMock.map((val) => val) : []
       this.isIndeterminate = false
       // 子传父
       this.$emit('check-district', this.checkedData)
@@ -284,7 +301,7 @@ export default {
         top: 0px;
         text-align: center;
         color: #c0c4cc;
-        transition: all .3s;
+        transition: all 0.3s;
         line-height: 33px;
         visibility: hidden;
         opacity: 0;
