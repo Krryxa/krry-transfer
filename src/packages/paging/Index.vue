@@ -181,6 +181,8 @@ export default {
       // this.checkedData 为空 且 从来没有将已选区置为空，则从 selectedData 获取
       if ((!this.checkedData.length && !this.manualEmpty) || selectedChange) {
         this.checkedData = JSON.parse(JSON.stringify(this.selectedData))
+        const keywords = this.$refs.hasSelect ? this.$refs.hasSelect.searchWord : ''
+        keywords && this.searchWord(keywords, 1)
       }
       if (!this.async) {
         this.selectListCheck = JSON.parse(JSON.stringify(this.checkedData))
