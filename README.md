@@ -254,6 +254,7 @@ selectedData: [
 |getPageData|Function|() => []|异步请求分页数据的方法，参数：pageIndex, pageSize|
 |getSearchData|Function|-|异步搜索数据的方法，仅分页是异步请求时使用，参数：keyword, pageIndex, pageSize；搜索框失焦或回车执行|
 |isHighlight|Boolean|false|搜索后关键词是否高亮展示|
+|highlightColor|String|#ff2b2b|关键词高亮颜色值|
 |showClearBtn|Boolean|false|是否在搜索框末尾展示清空按钮|
 
 ### Events
