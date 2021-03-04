@@ -12,6 +12,7 @@
       :async="async"
       :isLastPage="isLastPage"
       :isHighlight="isHighlight"
+      :highlightColor="highlightColor"
       :asyncSearchFlag="asyncSearchFlag"
       :showClearBtn="showClearBtn"
       @check-district="noCheckSelect"
@@ -49,6 +50,7 @@
       :filter-placeholder="filterPlaceholder[1]"
       :pageTexts="pageTexts"
       :isHighlight="isHighlight"
+      :highlightColor="highlightColor"
       :showClearBtn="showClearBtn"
       @check-district="hasCheckSelect"
       @search-word="searchWord"
@@ -109,6 +111,10 @@ export default {
     isHighlight: {
       type: Boolean,
       default: () => false
+    },
+    highlightColor: {
+      type: String,
+      default: () => '#ff2b2b'
     },
     showClearBtn: {
       type: Boolean,

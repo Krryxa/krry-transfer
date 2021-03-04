@@ -23,6 +23,7 @@
       :sort="false"
       :async="true"
       :isHighlight="true"
+      :highlightColor="'#ff502c'"
       :getPageData="getPageData"
       :getSearchData="getSearchData"
       :showClearBtn="true"

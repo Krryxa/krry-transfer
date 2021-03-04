@@ -97,6 +97,9 @@ export default {
     isHighlight: {
       type: Boolean
     },
+    highlightColor: {
+      type: String
+    },
     asyncSearchFlag: {
       // 是否设置了异步搜索方法
       type: Boolean
@@ -263,7 +266,7 @@ export default {
       label = label && label.trim()
       if (filterWord && label) {
         let reg = new RegExp(filterWord)
-        return label.replace(reg, `<span class="red">${filterWord}</span>`)
+        return label.replace(reg, `<span style="color: ${this.highlightColor}">${filterWord}</span>`)
       } else {
         return label
       }
@@ -361,10 +364,5 @@ export default {
       border-radius: 0;
     }
   }
-}
-</style>
-<style>
-.red {
-  color: #ff2b2b;
 }
 </style>
