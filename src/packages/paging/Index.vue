@@ -153,7 +153,7 @@ export default {
   computed: {
     // 传递到后台保存的数据（已选中的数据的 id 数组）
     selectIdList() {
-      return this.selectListCheck.map((item) => item.id)
+      return this.selectListCheck.map(item => item.id)
     },
     originList() {
       return this.async ? this.asyncDataList : this.dataList
@@ -166,7 +166,13 @@ export default {
   watch: {
     selectIdList(newVal) {
       // 获取已选数据的监听事件
-      this.$emit('onChange', newVal)
+      const moveKeys = [
+        ...this.noCheckData.map(item => item.id),
+        ...this.hasCheckData.map(item => item.id)
+      ]
+      this.hasCheckData = []
+      this.noCheckData = []
+      this.$emit('onChange', newVal, moveKeys)
     },
     dataList: {
       handler() {
@@ -194,9 +200,9 @@ export default {
       }
       if (!this.async) {
         this.selectListCheck = JSON.parse(JSON.stringify(this.checkedData))
-        const checkDataId = this.selectListCheck.map((ele) => ele.id)
+        const checkDataId = this.selectListCheck.map(ele => ele.id)
         this.notSelectDataList = this.originList.filter(
-          (ele) => !checkDataId.includes(ele.id)
+          ele => !checkDataId.includes(ele.id)
         )
         this.dataListNoCheck = JSON.parse(
           JSON.stringify(this.notSelectDataList)
@@ -205,14 +211,14 @@ export default {
         if (selectedChange) {
           this.selectListCheck = JSON.parse(JSON.stringify(this.checkedData))
         }
-        const checkDataId = this.selectListCheck.map((ele) => ele.id)
+        const checkDataId = this.selectListCheck.map(ele => ele.id)
         this.notSelectDataList = this.originList.filter(
-          (ele) =>
+          ele =>
             !checkDataId.includes(ele.id) &&
             (ele.label.includes(this.noSelectkeyword) || this.asyncSearchFlag)
         )
         this.dataListNoCheck = this.originList.filter(
-          (ele) => !checkDataId.includes(ele.id)
+          ele => !checkDataId.includes(ele.id)
         )
       }
     },
@@ -222,13 +228,13 @@ export default {
       if (titleId === 0) {
         this.noSelectkeyword = keyword
         if (!this.asyncSearchFlag) {
-          this.notSelectDataList = this.dataListNoCheck.filter((val) =>
+          this.notSelectDataList = this.dataListNoCheck.filter(val =>
             val.label.includes(keyword)
           )
         }
       } else {
         this.haSelectkeyword = keyword
-        this.checkedData = this.selectListCheck.filter((val) =>
+        this.checkedData = this.selectListCheck.filter(val =>
           val.label.includes(keyword)
         )
       }
@@ -257,35 +263,35 @@ export default {
     // 关键：把未选择的数据当做已选择的过滤数组，把已选择的数据当做未选择的过滤数组，在全局data进行过滤，最后进行一次搜索
     // 添加至已选
     addData() {
-      const noCheckDataId = this.noCheckData.map((ele) => ele.id)
+      const noCheckDataId = this.noCheckData.map(ele => ele.id)
       // 待选区数据过滤
       // 如果设置了异步搜索，就不用过滤关键词 this.asyncSearchFlag 为 true
       this.notSelectDataList = this.notSelectDataList.filter(
-        (ele) =>
+        ele =>
           !noCheckDataId.includes(ele.id) &&
           (ele.label.includes(this.noSelectkeyword) || this.asyncSearchFlag)
       )
       this.dataListNoCheck = this.dataListNoCheck.filter(
-        (ele) => !noCheckDataId.includes(ele.id)
+        ele => !noCheckDataId.includes(ele.id)
       )
       // 已选区数据增加
       if (!this.async && this.sort) {
         // 排序，从固定不变的所有数据中过滤，顺序就不会乱。但若数据量大就会比较卡
         // 异步分页不支持排序
-        const dataListNoCheckId = this.dataListNoCheck.map((ele) => ele.id)
+        const dataListNoCheckId = this.dataListNoCheck.map(ele => ele.id)
         this.checkedData = this.originList.filter(
-          (ele) =>
+          ele =>
             !dataListNoCheckId.includes(ele.id) &&
             ele.label.includes(this.haSelectkeyword)
         )
         this.selectListCheck = this.originList.filter(
-          (ele) => !dataListNoCheckId.includes(ele.id)
+          ele => !dataListNoCheckId.includes(ele.id)
         )
       } else {
         // 这种效率更高的方法，但不能排序
         this.checkedData.push(...this.noCheckData)
         this.selectListCheck.push(...this.noCheckData)
-        this.checkedData = this.checkedData.filter((ele) =>
+        this.checkedData = this.checkedData.filter(ele =>
           ele.label.includes(this.haSelectkeyword)
         )
       }
@@ -293,29 +299,29 @@ export default {
     // 从已选中删除
     deleteData() {
       // 已选区数据过滤
-      const hasCheckDataId = this.hasCheckData.map((ele) => ele.id)
+      const hasCheckDataId = this.hasCheckData.map(ele => ele.id)
       this.checkedData = this.checkedData.filter(
-        (ele) =>
+        ele =>
           !hasCheckDataId.includes(ele.id) &&
           ele.label.includes(this.haSelectkeyword)
       )
       this.selectListCheck = this.selectListCheck.filter(
-        (ele) => !hasCheckDataId.includes(ele.id)
+        ele => !hasCheckDataId.includes(ele.id)
       )
 
       this.manualEmpty = !this.checkedData.length
 
       // 待选区数据增加
-      const selectListCheckId = this.selectListCheck.map((ele) => ele.id)
+      const selectListCheckId = this.selectListCheck.map(ele => ele.id)
       // const checkedDataId = this.checkedData.map(ele => ele.id)
       // 如果设置了异步搜索，就不用过滤关键词 this.asyncSearchFlag 为 true
       this.notSelectDataList = this.originList.filter(
-        (ele) =>
+        ele =>
           !selectListCheckId.includes(ele.id) &&
           (ele.label.includes(this.noSelectkeyword) || this.asyncSearchFlag)
       )
       this.dataListNoCheck = this.originList.filter(
-        (ele) => !selectListCheckId.includes(ele.id)
+        ele => !selectListCheckId.includes(ele.id)
       )
     },
     // 提供获取已选数据的钩子
@@ -384,7 +390,7 @@ export default {
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .krry-main {
   min-width: 600px;
 }

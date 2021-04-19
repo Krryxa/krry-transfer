@@ -204,8 +204,9 @@ export default {
     onChangeData(val) {
       console.log('监听数据改变：', val)
     },
-    onChangeData2(val) {
+    onChangeData2(val, moveKeys) {
       console.log('监听数据改变：', val)
+      console.log('改变的keys', moveKeys)
     },
     getData(index) {
       if (index === 1) {

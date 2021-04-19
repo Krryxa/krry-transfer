@@ -50,7 +50,7 @@ import krryTransfer from 'krry-transfer'
 
 Vue.use(krryTransfer)
 
-/* 
+/*
  * or 按需引入
  * import { krryCascader, krryPaging } from 'krry-transfer'
  *
@@ -179,7 +179,7 @@ Modern browsers and Internet Explorer 10+.
 
 |name|params|description|
 |:-|:-|:-|
-|onChange|Array: value（已选数据集合）|当已选数据变化时触发的事件|
+|onChange|Array: value（已选数据集合）|当已选区数据变化时触发的事件|
 
 ### Methods
 
@@ -261,7 +261,7 @@ selectedData: [
 
 |name|params|description|
 |:-|:-|:-|
-|onChange|Array: value（已选数据集合）|当已选数据变化时触发的事件|
+|onChange|value(已选数据集合 id)，moveKeys(移动的集合 id)|当已选区数据变化时触发的事件|
 
 ### Methods
 
@@ -339,7 +339,7 @@ methods: {
 ## About
 npm：[krry-transfer](https://www.npmjs.com/package/krry-transfer)
 
-Blog：[Krryblog](https://ainyi.com/81) 
+Blog：[Krryblog](https://ainyi.com/81)
 
 GitHub：[krry-transfer](https://github.com/Krryxa/krry-transfer)
 
