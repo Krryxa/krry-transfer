@@ -61,7 +61,7 @@ Vue.use(krryTransfer)
 
 每一项数据源格式如下：
 
-```json
+```js
 {
   id: 'xxx',
   label: 'xxx',
