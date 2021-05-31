@@ -84,7 +84,8 @@ export default {
           '101103': [
             {
               id: 101164181112,
-              label: '深圳市'
+              label: '深圳市',
+              disabled: true // 支持禁用
             }
           ]
         },
@@ -139,7 +140,8 @@ export default {
         },
         {
           id: 1,
-          label: '这是第1条数据'
+          label: '这是第1条数据',
+          disabled: true // 支持禁用
         }
       ],
       selectedData: [
@@ -202,7 +204,8 @@ dataObj: {
     '省id': [
       {
         id: '市id',
-        label: 'xx市'
+        label: 'xx市',
+        disabled: true // 支持禁用
       }
     ]
   },

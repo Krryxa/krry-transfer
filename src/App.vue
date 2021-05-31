@@ -127,7 +127,8 @@ export default {
             101164181112: [
               {
                 id: 106105142126,
-                label: '宝安区'
+                label: '宝安区',
+                disabled: true
               },
               {
                 id: 106105142125,
@@ -251,7 +252,8 @@ export default {
               },
               {
                 id: 5,
-                label: '这是第5条数据'
+                label: '这是第5条数据',
+                disabled: true
               }
             )
           }

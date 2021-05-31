@@ -36,6 +36,7 @@
         <el-checkbox
           v-for="(city, index) in districtListMock"
           class="el-transfer-panel__item"
+          :disabled="city.disabled"
           :title="city.label"
           :label="city"
           :key="index"
@@ -143,7 +144,7 @@ export default {
     },
     // 全选
     handleCheckAllChange(val) {
-      this.selectedDistrict = val ? this.districtListMock.map((val) => val) : []
+      this.selectedDistrict = val ? this.districtListMock.filter(val => !val.disabled).map((val) => val) : []
       this.isIndeterminate = false
     },
     // 添加至已选 或 删除已选区域

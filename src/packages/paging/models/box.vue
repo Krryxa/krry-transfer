@@ -41,6 +41,7 @@
         <el-checkbox
           v-for="(item, index) in districtListMock"
           class="el-transfer-panel__item"
+          :disabled="item.disabled"
           :title="item.label"
           :label="item"
           :key="index"
@@ -253,7 +254,7 @@ export default {
     },
     // 全选
     handleCheckAllChange(val) {
-      this.checkedData = val ? this.districtListMock.map((val) => val) : []
+      this.checkedData = val ? this.districtListMock.filter(val => !val.disabled).map((val) => val) : []
       this.isIndeterminate = false
       // 子传父
       this.$emit('check-district', this.checkedData)
