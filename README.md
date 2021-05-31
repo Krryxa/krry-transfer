@@ -59,6 +59,18 @@ Vue.use(krryTransfer)
  */
 ```
 
+每一项数据源格式如下：
+
+```json
+{
+  id: 'xxx',
+  label: 'xxx',
+  disabled: true // 可选
+}
+```
+
+id 为唯一标识，label 为显示文本，disabled 表示该项数据是否禁止转移，若没有 disabled 属性，则默认允许转移
+
 ### kr-cascader
 
 ```html
