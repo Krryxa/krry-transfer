@@ -259,8 +259,8 @@ selectedData: [
 |:-|:-|:-|:-|
 |boxTitle|Array|['待选区', '已选中']|按顺序指定每个方框的 title|
 |pageSize|Number|160|分页大小|
-|dataList|Array|[]|kr-paging 的数据源|
-|selectedData|Array|[]|已选数据集合|
+|dataList|Array&lt;dataItem&gt;|[]|kr-paging 的数据源|
+|selectedData|Array&lt;dataItem&gt;|[]|已选数据集合|
 |filterable|Boolean|false|是否可搜索|
 |filter-placeholder|Array|['请输入搜索内容', '请输入搜索内容']|左右两边搜索框占位符|
 |pageTexts|Array|['上一页', '下一页']|分页按钮文案|
@@ -271,6 +271,13 @@ selectedData: [
 |isHighlight|Boolean|false|搜索后关键词是否高亮展示|
 |highlightColor|String|#ff2b2b|关键词高亮颜色值|
 |showClearBtn|Boolean|false|是否在搜索框末尾展示清空按钮|
+
+**dataItem**
+|name|type|default|description|
+|:-|:-|:-|:-|
+|id|String &#124; Number|-|数据项唯一标识|
+|label|String|-|数据项名称|
+|disabled|Boolean|false|该项是否禁用|
 
 ### Events
 

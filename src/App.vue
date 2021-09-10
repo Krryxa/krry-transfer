@@ -168,7 +168,8 @@ export default {
         this.selectedData = [
           {
             id: '101101-101101101112',
-            label: '北京市-通州区'
+            label: '北京市-通州区',
+            disabled: true
           },
           {
             id: '101103-101164001112-106197987125',
@@ -193,7 +194,8 @@ export default {
           },
           {
             id: 2,
-            label: '这是第2条数据'
+            label: '这是第2条数据',
+            disabled: true
           },
           {
             id: 4,
