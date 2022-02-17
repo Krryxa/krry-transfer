@@ -352,17 +352,20 @@ export default {
     text-align: center;
   }
   .vip-footer {
+    display: flex;
     position: relative;
     margin: 0;
     text-align: center;
     border-top: 1px solid #ebeef5;
 
     .v-page {
-      float: left;
       width: 50%;
       border: none;
       margin: 0;
       border-radius: 0;
+      &:first-child {
+        border-right: 1px solid #ebeef5;
+      }
     }
   }
 }
