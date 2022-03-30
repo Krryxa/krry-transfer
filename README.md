@@ -372,3 +372,7 @@ If you find KrryTransfer useful, you can buy me a cup of coffee
 
 ## LICENSE
 [MIT](https://github.com/Krryxa/krry-transfer/blob/master/LICENSE)
+
+## Remark
+自组件发布以来，有不少人询问和提相关优化需求，我也优化了许多。但也有部分问题没有时间完善。
+还没支持 Vue3，这组件只有我一个人维护，很忙呀，有没有人帮忙一起完善呀，可以提 PR。
